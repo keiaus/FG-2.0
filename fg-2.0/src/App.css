@@ -1,42 +1,45 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+body {
+  background-color: dodgerblue;
+}
+
+a {
+  padding: 50px;
+  font-size: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  text-decoration: none;
+}
+
+.header-container {
   text-align: center;
+  margin-top: 50px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+#home-ref {
+  color: white;
+  text-decoration: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#doc-ref {
+  color: white;
+  text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+#news-ref {
+  color: white;
+  text-decoration: none;
 }
 
-.card {
-  padding: 2em;
+#about-ref {
+  color: white;
+  text-decoration: none;
 }
 
-.read-the-docs {
-  color: #888;
+#signup-ref {
+  color: white;
+  text-decoration: none;
+}
+
+#login-ref {
+  color: white;
+  text-decoration: none;
 }
