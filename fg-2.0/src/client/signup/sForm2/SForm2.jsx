@@ -1,6 +1,6 @@
 import React from "react";
 
-const SignupFormTwo = () => {
+const SForm2 = () => {
     return (
         <>
             <div>
@@ -10,4 +10,4 @@ const SignupFormTwo = () => {
     )
 }
 
-export default SignupFormTwo;
+export default SForm2;
