@@ -1,10 +1,10 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import CalendarPage from './client/calendar/calendarPage/CalendarPage.jsx'
-import HomePage from './client/home/homePage/HomePage.jsx';
-import AboutPage from './client/about/aboutPage/AboutPage.jsx';
-import DocumentationPage from './client/documentation/documentationPage/DocumentationPage.jsx';
-import SForm1 from './client/signup/sForm1/sForm1.jsx';
-import LForm from './client/login/LForm.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import CalendarPage from './client/pages/calendar/calendarPage/CalendarPage.jsx';
+import HomePage from './client/pages/home/homePage/HomePage.jsx';
+import AboutPage from './client/pages/about/aboutPage/AboutPage.jsx';
+import DocumentationPage from './client/pages/documentation/documentationPage/DocumentationPage.jsx';
+import SForm1 from './client/pages/signup/sForm1/SForm1.jsx';
+import LForm from './client/pages/login/LForm.jsx';
 import './App.css'
 
 function App() {
