@@ -1,12 +1,12 @@
 import React from "react";
-import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
+import LcForm from "../../../components/Login/LcForm";
 
 const LForm = () => {
     return (
         <>
             <div>
-                <Layout/>
+                <LcForm/>
                 <Footer/>
             </div>
         </>

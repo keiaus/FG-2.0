@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "../Layout/Layout";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { pool } from "../../model/db.config";
 
 const ScForm1 = () => {
     const [firstName, setFirstName] = useState("");
@@ -66,28 +65,32 @@ const ScForm1 = () => {
                 <Layout />
             </div>
             <div id="sform1-div">
-                <h1 id="signup-h1">Sign Up</h1>
-                <form onSubmit={ handlePassChecker }>
-                    <label for="firstName">First Name: </label><br />
-                    <input type="text" id="firstName" value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />
-                    <br />
-                    <label for="lastName">Last Name: </label><br />
-                    <input type="text" id="lastName" value={lastName} onChange={event => setLastName(event.target.value)}></input><br />
-                    <br />
-                    <label for="email">Email: </label><br />
-                    <input type="text" id="email" value={email} onChange={event => setEmail(event.target.value)}></input><br />
-                    <br />
-                    <label for="username">Username: </label><br />
-                    <input type="text" id="username" value={username} onChange={event => setUsername(event.target.value)}></input><br />
-                    <br />
-                    <label for="pass">Password: </label><br />
-                    <input type="text" id="pass" value={pass} onChange={ handlePassEntry }></input><br />
-                    <br />
-                    <label for="pass2">Confirm Password: </label><br />
-                    <input type="text" id="pass2" value={pass2} onChange={ handlePass2Entry }></input><br />
-                    <br />
-                    <input type="submit" id="submit" value={"Submit"}></input>
-                </form>
+                <div className="signup-container">
+                    <h1 id="signup-h1">Sign Up</h1>
+                    <form onSubmit={handlePassChecker}>
+                        <div id="signup-info-div">
+                            <label for="firstName">First Name: </label><br />
+                            <input type="text" id="firstName" value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />
+                            <br />
+                            <label for="lastName">Last Name: </label><br />
+                            <input type="text" id="lastName" value={lastName} onChange={event => setLastName(event.target.value)}></input><br />
+                            <br />
+                            <label for="email">Email: </label><br />
+                            <input type="text" id="email" value={email} onChange={event => setEmail(event.target.value)}></input><br />
+                            <br />
+                            <label for="username">Username: </label><br />
+                            <input type="text" id="username" value={username} onChange={event => setUsername(event.target.value)}></input><br />
+                            <br />
+                            <label for="pass">Password: </label><br />
+                            <input type="password" id="pass" value={pass} onChange={handlePassEntry}></input><br />
+                            <br />
+                            <label for="pass2">Confirm Password: </label><br />
+                            <input type="password" id="pass2" value={pass2} onChange={handlePass2Entry}></input><br />
+                            <br />
+                            <input type="submit" id="submit" value={"Submit"}></input>
+                        </div>
+                    </form>
+                </div>
             </div>
         </>
     )
