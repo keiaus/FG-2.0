@@ -1,53 +1,42 @@
 import React from "react";
 import Layout from "../Layout/Layout";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const ScForm1 = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [pass, setPass] = useState("");
-    const [pass2, setPass2] = useState("");
 
-    if (pass && pass2) {
-        handlePassChecker();
-    }
-
-    // Sets the pass state varibale to the value given by the user
-    const handlePassEntry = (event) => {
-        setPass(event.target.value);
-    }
-
-    // Sets the pass2 state varibale to the value given by the user
-    const handlePass2Entry = (event) => {
-        setPass2(event.target.value);
-    }
-
-    const handlePassChecker = (event) => {
-        try {
-            if (pass == pass2) {
-                onSubmitForm();
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [email, setEmail] = useState();
+    const [username, setUsername] = useState();
+    const [pass, setPass] = useState();
+    const [pass2, setPass2] = useState();
 
     const onSubmitForm = async (event) => {
         event.preventDefault();
-        try {
-            const body = { firstName, lastName, email, username, pass };
-            const response = await fetch("http://localhost:6500/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" }, 
-                body: JSON.stringify(body)
-            });
-            
-            console.log(response);
 
-        } catch (error) {
-            console.error(error.message);
+        if (pass != pass2) {
+            alert("Passwords must match.");
+        }
+
+        if (pass == null && pass2 == null) {
+            alert("Please enter a password.");
+        }
+        
+        if (pass == pass2 && pass != null && pass2 != null) {
+            try {
+                const body = { firstName, lastName, email, username, pass };
+                const response = await fetch("http://localhost:6500/signup", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+
+                alert("Account created.");
+                console.log(response);
+            
+            } catch (error) {
+                console.error(error.message);
+            }
         }
     }
 
@@ -58,7 +47,7 @@ const ScForm1 = () => {
             </div>
             <div id="sform1-div">
                 <h1 id="signup-h1">Sign Up</h1>
-                <form onSubmit={ handlePassChecker }>
+                <form onSubmit={ onSubmitForm }>
                     <label for="firstName">First Name: </label><br />
                     <input type="text" id="firstName" value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />
                     <br />
@@ -72,12 +61,12 @@ const ScForm1 = () => {
                     <input type="text" id="username" value={username} onChange={event => setUsername(event.target.value)}></input><br />
                     <br />
                     <label for="pass">Password: </label><br />
-                    <input type="text" id="pass" value={pass} onChange={ handlePassEntry }></input><br />
+                    <input type="password" id="pass" value={pass} onChange={event => setPass(event.target.value)}></input><br />
                     <br />
                     <label for="pass2">Confirm Password: </label><br />
-                    <input type="text" id="pass2" value={pass2} onChange={ handlePass2Entry }></input><br />
+                    <input type="password" id="pass2" value={pass2} onChange={event => setPass2(event.target.value)}></input><br />
                     <br />
-                    <input type="submit" id="submit" value={"Submit"}></input>
+                    <input type="submit" id="submit" value={"Sign Up"}></input>
                 </form>
             </div>
         </>

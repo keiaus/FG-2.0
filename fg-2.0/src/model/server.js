@@ -29,7 +29,7 @@ app.post("/signup", async(req, res) => {
 })
 
 // get all users
-app.get("/users", async(req, res) => {
+app.get("/login", async(req, res) => {
     try {
         const allUsers = await pool.query("SELECT * FROM Person");
         res.json(allUsers.rows);
@@ -42,7 +42,7 @@ app.get("/users", async(req, res) => {
 app.get("/users/:id", async(req, res) => {
     try {
         const { id } = req.params;
-        const user = await pool.query("SELECT * FROM Person WHERE personId = $1", [id]);
+        const user = await pool.query("SELECT * FROM Users WHERE userId = $1", [id]);
         res.json(user.rows[0]);
     } catch (error) {
         console.error(error.message);
