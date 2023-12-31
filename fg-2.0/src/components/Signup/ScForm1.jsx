@@ -1,8 +1,6 @@
 import React from "react";
 import Layout from "../Layout/Layout";
 import { useState, useEffect } from "react";
-import axios from 'axios';
-import { pool } from "../../model/db.config";
 
 const ScForm1 = () => {
     const [firstName, setFirstName] = useState("");
@@ -40,20 +38,13 @@ const ScForm1 = () => {
         event.preventDefault();
         try {
             const body = { firstName, lastName, email, username, pass };
-            const response = await fetch("http://localhost:7000/users", {
+            const response = await fetch("http://localhost:6500/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" }, 
                 body: JSON.stringify(body)
             });
             
             console.log(response);
-            
-            const text = 'INSERT INTO Users(firstname, lastname, email, username, pass) VALUES($1, $2, $3, $4, $5) RETURNING *';
-            const values = [firstName, lastName, email, username, pass];
-
-            const res = await pool.query(text, values);
-
-            console.log(res.rows[0]);
 
         } catch (error) {
             console.error(error.message);
