@@ -6,8 +6,11 @@ const CalendarPage = () => {
     return (
         <>
             <div>
-                <Layout/>
-                <Footer/>
+                <title>Calendar | FG-2.0</title>
+                <Layout />
+                <div className="table-class">
+                </div>
+                <Footer />
             </div>
         </>
     )

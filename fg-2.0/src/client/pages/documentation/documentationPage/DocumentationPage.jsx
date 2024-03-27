@@ -6,6 +6,7 @@ const DocumentationPage = () => {
     return (
         <>
             <div>
+            <title>Documentation | FG-2.0</title>
                 <Layout/>
                 <Footer/>
             </div>

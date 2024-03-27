@@ -6,6 +6,7 @@ const AboutPage = () => {
     return (
         <>
             <div id="about-page-div">
+            <title>About | FG-2.0</title>
                 <Layout />
                 <h1 id="about-h1">What is FG?</h1>
                 <p id="about-p">FG is a way to connect with friends and family through flight booking to make traveling with large parties more organized.</p>
