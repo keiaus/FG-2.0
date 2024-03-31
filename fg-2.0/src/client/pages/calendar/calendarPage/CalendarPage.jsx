@@ -22,7 +22,7 @@ const CalendarPage = () => {
     const [year, setYear] = useState(new Date().getFullYear());
     const [clicked, setClicked] = useState(false);
 
-    const handleDayClicked = (dayClicked) => {
+    const handleDayClicked = () => {
         setClicked(true);
     }
 
@@ -81,7 +81,6 @@ const CalendarPage = () => {
                             </tr>
                         </table>
                     </div>
-
                 </body>
                 <Footer />
             </div>

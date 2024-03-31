@@ -51,22 +51,22 @@ const ScForm1 = () => {
                 <h1 id="signup-h1">Sign Up</h1>
                 <form onSubmit={ onSubmitForm }>
                     <label htmlFor="firstName">First Name: </label><br />
-                    <input type="text" id="firstName" value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />
+                    <input type="text" id="firstName" required value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />
                     <br />
                     <label htmlFor="lastName">Last Name: </label><br />
-                    <input type="text" id="lastName" value={lastName} onChange={event => setLastName(event.target.value)}></input><br />
+                    <input type="text" id="lastName" required value={lastName} onChange={event => setLastName(event.target.value)}></input><br />
                     <br />
                     <label htmlFor="email">Email: </label><br />
-                    <input type="text" id="email" value={email} onChange={event => setEmail(event.target.value)}></input><br />
+                    <input type="text" id="email" required value={email} onChange={event => setEmail(event.target.value)}></input><br />
                     <br />
                     <label htmlFor="username">Username: </label><br />
-                    <input type="text" id="username" value={username} onChange={event => setUsername(event.target.value)}></input><br />
+                    <input type="text" id="username" required value={username} onChange={event => setUsername(event.target.value)}></input><br />
                     <br />
                     <label htmlFor="pass">Password: </label><br />
-                    <input type="password" id="pass" value={pass} onChange={event => setPass(event.target.value)}></input><br />
+                    <input type="password" id="pass" required value={pass} onChange={event => setPass(event.target.value)}></input><br />
                     <br />
                     <label htmlFor="pass2">Confirm Password: </label><br />
-                    <input type="password" id="pass2" value={pass2} onChange={event => setPass2(event.target.value)}></input><br />
+                    <input type="password" id="pass2" required value={pass2} onChange={event => setPass2(event.target.value)}></input><br />
                     <br />
                     <input type="submit" id="submit" value={"Sign Up"}></input>
                 </form>
