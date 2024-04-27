@@ -14,7 +14,7 @@ import Footer from "../../../components/Footer/Footer";
 //     .then(data => data.json())
 // }
 
-const LForm = () => {
+const LoginForm = () => {
 
     const [username, setUsername] = useState();
     const [pass, setPass] = useState();
@@ -66,7 +66,7 @@ const LForm = () => {
     )
 }
 
-export default LForm;
+export default LoginForm;
 
 // LForm.propTypes = {
 //     setToken: propTypes.func.isRequired
