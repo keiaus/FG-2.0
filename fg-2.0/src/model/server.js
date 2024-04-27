@@ -5,6 +5,9 @@ const cors = require('cors');
 const pool = require('./db.config');
 const app = express();
 
+
+// ALL SQL calls happen here
+
 // middleware
 app.use(cors());
 app.use(express.json());

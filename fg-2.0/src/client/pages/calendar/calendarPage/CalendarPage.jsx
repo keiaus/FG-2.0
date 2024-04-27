@@ -20,11 +20,15 @@ const CalendarPage = () => {
 
     const [monthName, setMonthName] = useState(new Date().getMonth());
     const [year, setYear] = useState(new Date().getFullYear());
-    const [clicked, setClicked] = useState(false);
+    // const [days, setDays] = useState([]);
 
-    const handleDayClicked = () => {
-        setClicked(true);
-    }
+    // const handleDayClicked = (i) => {
+    //     days.forEach(element => {
+    //         if (element.key === i) {
+    //             setDayClicked(i);
+    //         }
+    //     });
+    // }
 
     const handleForwardArrow = () => {
         setMonthName(prevIndex => (prevIndex + 1) % 12);
@@ -44,7 +48,6 @@ const CalendarPage = () => {
         const monthName2 = month[monthName];
         const daysInMonth = getDaysInMonth(monthName2);
         const days = [];
-
         for (let i = 1; i <= daysInMonth; i++) {
             days.push(<button key={i} id="day-button">{i}</button>);
         }
@@ -61,7 +64,6 @@ const CalendarPage = () => {
             return 31;
         }
     };
-
 
     return (
         <>

@@ -3,7 +3,7 @@ import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
 
-const ScForm1 = () => {
+const SignupForm = () => {
 
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
@@ -76,4 +76,4 @@ const ScForm1 = () => {
     )
 }
 
-export default ScForm1;
+export default SignupForm;

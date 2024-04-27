@@ -3,8 +3,8 @@ import CalendarPage from './client/pages/calendar/calendarPage/CalendarPage.jsx'
 import HomePage from './client/pages/home/homePage/HomePage.jsx';
 import AboutPage from './client/pages/about/aboutPage/AboutPage.jsx';
 import DocumentationPage from './client/pages/documentation/documentationPage/DocumentationPage.jsx';
-import SForm from "./client/pages/signup/SForm.jsx"
-import LForm from './client/pages/login/LForm.jsx';
+import SignupForm from "./client/pages/signup/SignupForm.jsx"
+import LoginForm from './client/pages/login/LoginForm.jsx';
 // import useToken from './components/App/useToken.js';
 import './App.css'
 
@@ -34,8 +34,8 @@ function App() {
           <Route path="/calendar" element={<CalendarPage />}></Route>
           <Route path="/about" element={<AboutPage />}></Route>
           <Route path="/documentation" element={<DocumentationPage />}></Route>
-          <Route path="/sform" element={<SForm />}></Route>
-          <Route path="/lform" element={<LForm />}></Route>
+          <Route path="/signup" element={<SignupForm />}></Route>
+          <Route path="/login" element={<LoginForm />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

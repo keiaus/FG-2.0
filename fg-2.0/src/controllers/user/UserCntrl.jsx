@@ -1,18 +1,21 @@
 import React, { useState } from "react";
-import { express, cors, app, pool } from "../api";
 
+// All user actions
 const User = () => {
 
     const handleCreateUser = (event) => {
-        // return signup component
         
     }
 
-    const handleUpdateUser = (event) => {
+    const handleUpdateDetails = (event) => {
         
     }
 
-    const handleDeleteUser = (event) => {
+    const handleDeleteAccount = (event) => {
+        
+    }
+
+    const handleGetUserData = (event) => {
         
     }
 
