@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import CalendarPage from './client/pages/calendar/calendarPage/CalendarPage.jsx';
-import HomePage from './client/pages/home/homePage/HomePage.jsx';
-import AboutPage from './client/pages/about/aboutPage/AboutPage.jsx';
-import DocumentationPage from './client/pages/documentation/documentationPage/DocumentationPage.jsx';
+import CalendarPage from './client/pages/calendar/Calendar.jsx';
+import HomePage from './client/pages/home/Home.jsx';
+import AboutPage from './client/pages/about/About.jsx';
+import DocumentationPage from './client/pages/documentation/Documentation.jsx';
 import SignupForm from "./client/pages/signup/SignupForm.jsx"
 import LoginForm from './client/pages/login/LoginForm.jsx';
 // import useToken from './components/App/useToken.js';

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Layout from "../../../../components/Layout/Layout";
-import Footer from "../../../../components/Footer/Footer";
+import Layout from "../../../components/Layout/Layout";
+import Footer from "../../../components/Footer/Footer";
 
 const CalendarPage = () => {
     let month = [
