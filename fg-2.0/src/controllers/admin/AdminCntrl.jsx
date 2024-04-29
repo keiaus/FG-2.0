@@ -1,6 +1,8 @@
 
 
-// Handles all the admin actions
-const Admin = () => {
+// Handles all the admin calls to the server
+const AdminCntrl = () => {
     
 }
+
+export default AdminCntrl;

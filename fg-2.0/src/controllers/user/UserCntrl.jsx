@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-// All user actions
-const User = () => {
+// Handles all the user calls to the server
+const UserCntrl = () => {
 
     const handleCreateUser = (event) => {
         
@@ -33,4 +33,4 @@ const User = () => {
 
 }
 
-export default User;
+export default UserCntrl;

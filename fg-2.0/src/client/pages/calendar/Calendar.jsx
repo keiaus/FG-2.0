@@ -20,15 +20,12 @@ const CalendarPage = () => {
 
     const [monthName, setMonthName] = useState(new Date().getMonth());
     const [year, setYear] = useState(new Date().getFullYear());
-    // const [days, setDays] = useState([]);
+    const [dayClicked, setDayClicked] = useState(0);
 
-    // const handleDayClicked = (i) => {
-    //     days.forEach(element => {
-    //         if (element.key === i) {
-    //             setDayClicked(i);
-    //         }
-    //     });
-    // }
+    const handleDayClicked = (i) => {
+        const button = document.getElementById("day-button");
+        button.setAttribute("style", "background-color: green;");
+    }
 
     const handleForwardArrow = () => {
         setMonthName(prevIndex => (prevIndex + 1) % 12);
@@ -44,12 +41,15 @@ const CalendarPage = () => {
         }
     }
 
+    // We need a global variable for the day selected
     const renderDays = () => {
         const monthName2 = month[monthName];
         const daysInMonth = getDaysInMonth(monthName2);
         const days = [];
+        let dayId = "day-button";
         for (let i = 1; i <= daysInMonth; i++) {
-            days.push(<button key={i} id="day-button">{i}</button>);
+            dayId += i.toString();
+            days.push(<button key={i} onClick={handleDayClicked}>{i}</button>);
         }
         return days;
     };
@@ -71,7 +71,7 @@ const CalendarPage = () => {
                 <title>Calendar | FG-2.0</title>
                 <Layout />
                 <body id="calendar-body">
-                    
+
                     <div id="calendar-div">
                         <i id="back-arrow" class="fa-solid fa-arrow-left" onClick={handleBackArrow}></i>
                         <label id="month-label">{month[monthName]}</label>
@@ -80,6 +80,7 @@ const CalendarPage = () => {
                         <table>
                             <tr>
                                 {renderDays()}
+                                {handleDayClicked}
                             </tr>
                         </table>
                     </div>

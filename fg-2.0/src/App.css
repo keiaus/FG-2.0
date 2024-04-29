@@ -118,7 +118,7 @@ ul {
   padding: 0;
 }
 
-#day-button {
+[id^="day-button"] {
   font-size: 40px;
   cursor: pointer;
   padding: 15px;

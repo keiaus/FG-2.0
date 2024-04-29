@@ -1,5 +1,7 @@
 
 
-const Calendar = () => {
+const CalendarCntrl = () => {
     
 }
+
+export default CalendarCntrl;
