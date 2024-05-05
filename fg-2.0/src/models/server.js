@@ -2,9 +2,13 @@
 
 const express = require('express');
 const cors = require('cors');
-const pool = require('../db.config');
 const app = express();
+const port = 6500;
+
 const userModel = require('./user/userModel');
+const adminModel = require('./admin/adminModel');
+const bookingModel = require('./booking/bookingModel');
+const flightsModel = require('./flights/flightsModel');
 
 // middleware
 app.use(cors());
@@ -79,6 +83,6 @@ app.delete("/users/:id", async (req, res) => {
 })
 
 // Port number must be different from vite and postgres default
-app.listen(6500, () => {
-    console.log("Server is running on port 6500");
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 })
