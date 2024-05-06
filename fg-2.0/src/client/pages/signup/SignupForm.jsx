@@ -16,23 +16,23 @@ const SignupForm = () => {
         event.preventDefault();
 
         if (pass !== pass2) {
-            alert("Passwords must match.");
+            alert("Passwords must match");
         }
 
         if (pass === null && pass2 === null) {
-            alert("Please enter a password.");
+            alert("Please enter a password");
         }
 
         if (pass === pass2 && pass !== null && pass2 !== null) {
             try {
                 const body = { firstName, lastName, email, username, pass };
-                const response = await fetch("http://localhost:6500/signup", {
+                const response = await fetch("http://localhost:5173/signup", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(body)
                 });
 
-                alert("Account created.");
+                alert("Account created");
                 console.log(response);
 
             } catch (error) {

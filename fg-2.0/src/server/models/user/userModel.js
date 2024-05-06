@@ -70,6 +70,7 @@ const updateUser = (id, body) => {
     });
 };
 
+
 // get a user 
 const getUser = async (id) => {
     try {
@@ -92,6 +93,7 @@ const getUser = async (id) => {
         throw new Error("Internal server error");
     }
 };
+
 
 // get all users
 const getUsers = async () => {
