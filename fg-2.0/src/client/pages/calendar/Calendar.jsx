@@ -20,11 +20,13 @@ const CalendarPage = () => {
 
     const [monthName, setMonthName] = useState(new Date().getMonth());
     const [year, setYear] = useState(new Date().getFullYear());
-    const [dayClicked, setDayClicked] = useState(0);
+    const [days] = useState([]);
 
-    const handleDayClicked = (i) => {
-        const button = document.getElementById("day-button");
-        button.setAttribute("style", "background-color: green;");
+    const handleDayClicked = () => {
+        console.log("DAY CLICKED");
+        // let dayClicked = document.getElementById('')
+        // const button = document.getElementById("day-button");
+        // button.setAttribute("style", "background-color: green;");
     }
 
     const handleForwardArrow = () => {
@@ -41,15 +43,15 @@ const CalendarPage = () => {
         }
     }
 
-    // We need a global variable for the day selected
+    /**
+     * 
+     * @returns - Day count based on month name
+     */
     const renderDays = () => {
         const monthName2 = month[monthName];
         const daysInMonth = getDaysInMonth(monthName2);
-        const days = [];
-        let dayId = "day-button";
         for (let i = 1; i <= daysInMonth; i++) {
-            dayId += i.toString();
-            days.push(<button key={i} onClick={handleDayClicked}>{i}</button>);
+            days.push(<button key={i} id="day-button">{i}</button>);
         }
         return days;
     };
@@ -80,7 +82,7 @@ const CalendarPage = () => {
                         <table>
                             <tr>
                                 {renderDays()}
-                                {handleDayClicked}
+                                {handleDayClicked()}
                             </tr>
                         </table>
                     </div>
