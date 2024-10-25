@@ -2,14 +2,18 @@
 
 // getting-started.js
 const mongoose = require('mongoose');
-
-main().catch(err => console.log(err));
+require('dotenv').config();
+const url = `${process.env.DBURL}`;
 
 const main = async () => {
-    await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');
-
-    // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+    try {
+        await mongoose.connect(url);
+    } catch (oError) {
+        console.error(oError)
+    }
 }
+
+main().catch(err => console.log(err));
 
 const userSchema = new mongoose.Schema(
     {
@@ -33,7 +37,7 @@ const userSchema = new mongoose.Schema(
             trim: true, 
             default: null
         },
-        pass: {
+        password: {
             type: String,
             trim: true, 
             default: null

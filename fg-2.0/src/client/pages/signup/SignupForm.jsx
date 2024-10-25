@@ -2,6 +2,11 @@ import React from "react";
 import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
+//import { createRequire } from 'module';
+//const require = createRequire(import.meta.url);
+// import { UserData } from "../../../server/models/user/userModel";
+import axios from "axios";
+//const axios = require('axios').default;
 
 const SignupForm = () => {
 
@@ -11,6 +16,7 @@ const SignupForm = () => {
     const [username, setUsername] = useState();
     const [pass, setPass] = useState();
     const [pass2, setPass2] = useState();
+    // const [serverUrl, setServerUrl] = useState("http://localhost:5173");
 
     const onSubmitForm = async (event) => {
         event.preventDefault();
@@ -25,12 +31,20 @@ const SignupForm = () => {
 
         if (pass === pass2 && pass !== null && pass2 !== null) {
             try {
-                const body = { firstName, lastName, email, username, pass };
-                const response = await fetch("http://localhost:5173/signup", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body)
-                });
+                // const body = { firstName, lastName, email, username, pass };
+                axios.post('http://localhost:5173/signup', {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    username: username,
+                    password: pass
+                  })
+                  .then(function (response) {
+                    console.log(response);
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
 
                 alert("Account created");
                 console.log(response);
