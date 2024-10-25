@@ -1,48 +1,21 @@
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 5000;
 require('dotenv').config();
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
 
-const url = `${process.env.DBURL}`;
+mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('MongoDB Connected.');
+    app.emit('ready');
+  })
+  .catch((error) => console.log(`Error Connecting to DB: ${error}`));
 
-const mongoose = require("mongoose");
-mongoose.connect(url);
+const api = require('./routes/api');
+app.use('/', api);
 
-const User = require("../models/user/userModel"); // Create the User Model
-
-// API routes
-app.post("/api/items", async (req, res) => {
-  try {
-    const items = await Item.find();
-    res.json(items);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server Error");
-  }
-});
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-// const { MongoClient } = require("mongodb");
-// require('dotenv').config();
- 
-// // Replace the following with your Atlas connection string 
-// //"mongodb+srv://<username>:<password>@cluster0.id6tcy7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0" (Should be in .env)                                                                                                                            
-// const url = `${process.env.DBURL}`;
-
-// // Connect to your Atlas cluster
-// const client = new MongoClient(url);
-
-// const run = async () => {
-//     try {
-//         await client.connect();
-//         console.log("Successfully connected to Atlas");
-
-//     } catch (err) {
-//         console.log(err.stack);
-//     }
-//     // finally {
-//     //     await client.close();
-//     // }
-// }
-
-// run().catch(console.dir);
+const port = process.env.PORT || 5000;
+app.on('ready', () => {
+  app.listen(port, () => {
+    console.log(`App is listening on port ${port}`)
+  })
+}); 
