@@ -16,15 +16,10 @@ const userCntrl = require('../controllers/userCntrl');
 // router.get('/getndata/:numberd', SatdataController.getNdata);
 // router.get('/gethistorydata/:times', SatdataController.getHistoryData);
 
-// create user route
-router.post('http://localhost:5173/signup', async (req, res) => {
-    try {
-        const newUser = await userCntrl.newUser();
-        res.json(newUser);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Server Error");
-    }
-});
+// Data api
+
+// ********** USER ROUTES ********** //
+router.post('http://localhost:5173/signup', userCntrl.createUser);
+
 
 module.exports = router;

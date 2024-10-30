@@ -3,17 +3,19 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('MongoDB Connected.');
-    app.emit('ready');
+const url = `${process.env.DBURL}`;
+
+mongoose.connect(url)
+  .then(() => console.log("Connected!"))
+  .catch((error) => {
+    console.log(`Error connecting to db: ${error}`);
+
   })
-  .catch((error) => console.log(`Error Connecting to DB: ${error}`));
 
-const api = require('./routes/api');
-app.use('/', api);
+const api = require('../routes/api');
+api.use('/', api);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5173;
 app.on('ready', () => {
   app.listen(port, () => {
     console.log(`App is listening on port ${port}`)

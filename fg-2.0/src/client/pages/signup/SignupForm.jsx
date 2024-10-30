@@ -2,21 +2,17 @@ import React from "react";
 import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
-//import { createRequire } from 'module';
-//const require = createRequire(import.meta.url);
-// import { UserData } from "../../../server/models/user/userModel";
 import axios from "axios";
-//const axios = require('axios').default;
+
+const baseURL = "http://localhost:5173/signup";
 
 const SignupForm = () => {
-
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
     const [username, setUsername] = useState();
     const [pass, setPass] = useState();
     const [pass2, setPass2] = useState();
-    // const [serverUrl, setServerUrl] = useState("http://localhost:5173");
 
     const onSubmitForm = async (event) => {
         event.preventDefault();
@@ -30,28 +26,21 @@ const SignupForm = () => {
         }
 
         if (pass === pass2 && pass !== null && pass2 !== null) {
-            try {
-                // const body = { firstName, lastName, email, username, pass };
-                axios.post('http://localhost:5173/signup', {
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    username: username,
-                    password: pass
-                  })
-                  .then(function (response) {
+            axios.post(baseURL, {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                username: username,
+                password: pass
+            })
+                .then(function (response) {
                     console.log(response);
-                  })
-                  .catch(function (error) {
+                })
+                .catch(function (error) {
                     console.log(error);
-                  });
+                });
 
-                alert("Account created");
-                console.log(response);
-
-            } catch (error) {
-                console.error(error.message);
-            }
+            alert("Account created");
         }
     }
 
@@ -63,7 +52,7 @@ const SignupForm = () => {
             </div>
             <div id="sform-div">
                 <h1 id="signup-h1">Sign Up</h1>
-                <form onSubmit={ onSubmitForm }>
+                <form onSubmit={onSubmitForm}>
                     <label htmlFor="firstName">First Name: </label><br />
                     <input type="text" id="firstName" required value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />
                     <br />
