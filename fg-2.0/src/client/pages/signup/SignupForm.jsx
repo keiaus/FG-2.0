@@ -2,9 +2,11 @@ import React from "react";
 import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
+import axios from "axios";
+
+const baseURL = "http://localhost:5173/signup";
 
 const SignupForm = () => {
-
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
@@ -24,20 +26,21 @@ const SignupForm = () => {
         }
 
         if (pass === pass2 && pass !== null && pass2 !== null) {
-            try {
-                const body = { firstName, lastName, email, username, pass };
-                const response = await fetch("http://localhost:5173/signup", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body)
+            axios.post(baseURL, {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                username: username,
+                password: pass
+            })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
                 });
 
-                alert("Account created");
-                console.log(response);
-
-            } catch (error) {
-                console.error(error.message);
-            }
+            alert("Account created");
         }
     }
 
@@ -49,7 +52,7 @@ const SignupForm = () => {
             </div>
             <div id="sform-div">
                 <h1 id="signup-h1">Sign Up</h1>
-                <form onSubmit={ onSubmitForm }>
+                <form onSubmit={onSubmitForm}>
                     <label htmlFor="firstName">First Name: </label><br />
                     <input type="text" id="firstName" required value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />
                     <br />
