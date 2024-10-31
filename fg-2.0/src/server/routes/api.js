@@ -21,5 +21,4 @@ const userCntrl = require('../controllers/userCntrl');
 // ********** USER ROUTES ********** //
 router.post('http://localhost:5173/signup', userCntrl.createUser);
 
-
 module.exports = router;
