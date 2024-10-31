@@ -16,8 +16,8 @@ const api = require('../routes/api');
 api.use('/', api);
 
 const port = process.env.PORT || 5173;
-app.on('ready', () => {
-  app.listen(port, () => {
-    console.log(`App is listening on port ${port}`)
-  })
-}); 
+// app.on('ready', () => {
+app.listen(port, () => {
+  console.log(`App is listening on port ${port}`)
+})
+// }); 

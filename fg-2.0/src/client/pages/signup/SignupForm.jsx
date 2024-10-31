@@ -13,6 +13,17 @@ const SignupForm = () => {
     const [username, setUsername] = useState();
     const [pass, setPass] = useState();
     const [pass2, setPass2] = useState();
+    //const [post, setPost] = React.useState(null);
+
+    React.useEffect(() => {
+        axios.get(`${baseURL}`).then((response) => {
+            setFirstName(response.data.firstName);
+            setLastName(response.data.lastName);
+            setEmail(response.data.email);
+            setUsername(response.data.username);
+            setPass(response.data.pass);
+        });
+    }, []);
 
     const onSubmitForm = async (event) => {
         event.preventDefault();
@@ -32,13 +43,22 @@ const SignupForm = () => {
                 email: email,
                 username: username,
                 password: pass
+            }, {
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8",
+                }
             })
-                .then(function (response) {
-                    console.log(response);
+                .then((response) => {
+                    setFirstName(response.data.firstName);
+                    setLastName(response.data.lastName);
+                    setEmail(response.data.email);
+                    setUsername(response.data.username);
+                    setPass(response.data.pass);
                 })
-                .catch(function (error) {
+                .catch((error) => {
                     console.log(error);
-                });
+
+                })
 
             alert("Account created");
         }
