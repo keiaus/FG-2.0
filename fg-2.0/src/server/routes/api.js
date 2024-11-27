@@ -19,6 +19,6 @@ const userCntrl = require('../controllers/userCntrl');
 // Data api
 
 // ********** USER ROUTES ********** //
-router.post('http://localhost:5173/signup', userCntrl.createUser);
+router.get('http://localhost:5173/signup', userCntrl.createUser);
 
 module.exports = router;
