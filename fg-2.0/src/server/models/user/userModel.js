@@ -1,72 +1,28 @@
+const { MongoClient } = require('mongodb');
 const mongoose = require('mongoose');
-// const { default: TestForm } = require('../../../client/pages/test123/TestForm');
 require('dotenv').config();
 const url = `${process.env.DBURL}`;
 
 const main = async () => {
+    const client = new MongoClient(url);
+
     try {
         await mongoose.connect(url);
+        await client.connect();
+        await listDatabases(client)
     } catch (oError) {
         console.error(oError)
+    }
+
+    finally {
+        await client.close();
     }
 }
 
 main().catch(err => console.log(err));
 
-const userSchema = new mongoose.Schema(
-    {
-        name: {
-            type: String,
-            trim: true, 
-            default: null
-        },
-        email: {
-            type: String,
-            trim: true, 
-            default: null
-        },
-        password: {
-            type: String,
-            trim: true, 
-            default: null
-        },
-    },
-    { versionKey: false }
-);
-
-// const userSchema = new mongoose.Schema(
-//     {
-//         firstName: {
-//             type: String,
-//             trim: true, 
-//             default: null
-//         },
-//         lastName: {
-//             type: String,
-//             trim: true, 
-//             default: null
-//         },
-//         email: {
-//             type: String,
-//             trim: true, 
-//             default: null
-//         },
-//         username: {
-//             type: String,
-//             trim: true, 
-//             default: null
-//         },
-//         password: {
-//             type: String,
-//             trim: true, 
-//             default: null
-//         },
-//     },
-//     { versionKey: false }
-// );
-
-const UserData = mongoose.model('sample_mflix', userSchema);
-
-module.exports = {
-    UserData
-};
+const listDatabases = async (client) => {
+    databasesList = await client.db().admin().listDatabases();
+    console.log("Databases");
+    databasesList.databases.forEach(db => console.log(` - ${db.name} `));
+}
