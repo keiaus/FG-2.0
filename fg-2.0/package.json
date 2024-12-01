@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@mui/material": "^5.11.12",
-    "axios": "^1.7.7",
+    "axios": "^1.7.8",
     "axis": "^1.0.0",
     "bootstrap": "^5.3.2",
     "cors": "^2.8.5",
