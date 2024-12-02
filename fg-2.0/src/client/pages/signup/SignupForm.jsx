@@ -6,6 +6,11 @@ import axios from "axios";
 
 const baseURL = "/signup";
 
+/**
+ * USE `npm run dev -- --host`
+ * @returns 
+ */
+
 
 const SignupForm = () => {
     const [firstName, setFirstName] = useState();
