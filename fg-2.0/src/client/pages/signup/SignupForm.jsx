@@ -4,7 +4,12 @@ import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
 import axios from "axios";
 
-const baseURL = "http://localhost:5173/signup";
+/**
+ * USE `npm run dev -- --host`
+ * @returns 
+ */
+
+const baseURL = "/api/" + process.env.VITE_API_ENDPOINT + "/signup";
 
 const SignupForm = () => {
     const [firstName, setFirstName] = useState();
@@ -13,21 +18,9 @@ const SignupForm = () => {
     const [username, setUsername] = useState();
     const [pass, setPass] = useState();
     const [pass2, setPass2] = useState();
-    //const [post, setPost] = React.useState(null);
-
-    React.useEffect(() => {
-        axios.get(`${baseURL}`).then((response) => {
-            setFirstName(response.data.firstName);
-            setLastName(response.data.lastName);
-            setEmail(response.data.email);
-            setUsername(response.data.username);
-            setPass(response.data.pass);
-        });
-    }, []);
 
     const onSubmitForm = async (event) => {
         event.preventDefault();
-
         if (pass !== pass2) {
             alert("Passwords must match");
         }
@@ -43,21 +36,12 @@ const SignupForm = () => {
                 email: email,
                 username: username,
                 password: pass
-            }, {
-                headers: {
-                    "Content-Type": "application/json; charset=UTF-8",
-                }
             })
                 .then((response) => {
-                    setFirstName(response.data.firstName);
-                    setLastName(response.data.lastName);
-                    setEmail(response.data.email);
-                    setUsername(response.data.username);
-                    setPass(response.data.pass);
+                    console.log("response: ", response);
                 })
                 .catch((error) => {
-                    console.log(error);
-
+                    console.log("ERRORRORORORORORO: ", error);
                 })
 
             alert("Account created");
