@@ -1,10 +1,10 @@
-require('dotenv').config();
+console.log("server: ", require('dotenv').config({ path: process.env.SERVER_PATH }));
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const url = `${process.env.DBURL}`;
+const url = `${process.env.DB_URL}`;
 
 mongoose.connect(url)
     .then(() => console.log("Connected!"))
@@ -12,9 +12,9 @@ mongoose.connect(url)
         console.log(`Error connecting to db: ${error}`);
     })
 
-const port = process.env.PORT || 3111;
+const port = process.env.PORT;
 
-const api = require('../server/routes/api');
+const api = require('./routes/api');
 
 app.use('/', cors(), api);
 

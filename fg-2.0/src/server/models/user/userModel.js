@@ -1,10 +1,10 @@
 //const { MongoClient } = require('mongodb');
 const mongoose = require('mongoose');
-// const path = require('path');
-// const dotenv = require('dotenv');
-// const envPath = path.resolve(__dirname, '..', '..', '.env');
-// dotenv.config({ path: envPath });
-// const url = `${process.env.DBURL}`;
+const path = require('path');
+const dotenv = require('dotenv');
+const envPath = path.resolve(__dirname, '..', '..', '.env');
+dotenv.config({ path: envPath });
+const users = `${process.env.USERS}`;
 // const dbName = `${process.env.DBNAME}`;
 
 // const main = async () => {
@@ -97,7 +97,7 @@ const userSchema = new mongoose.Schema(
 
 // const collection = db.collection('users');
 
-const UserData = mongoose.model('users', userSchema);
+const UserData = mongoose.model(users, userSchema);
 
 module.exports = {
     UserData

@@ -6,26 +6,9 @@ import DocumentationPage from './client/pages/documentation/Documentation.jsx';
 import SignupForm from "./client/pages/signup/SignupForm.jsx"
 import LoginForm from './client/pages/login/LoginForm.jsx';
 import TestForm from './client/pages/test123/TestForm.jsx';
-// import useToken from './components/App/useToken.js';
-import './App.css'
+import './App.css';
 
-// const setToken = (userToken) => {
-//   sessionStorage.setItem('token', JSON.stringify(userToken));
-// }
-
-// const getToken = () => {
-//   const tokenString = sessionStorage.getItem('token');
-//   const userToken = JSON.parse(tokenString);
-//   return userToken?.token
-// }
-
-function App() {
-  // const token = getToken();
-
-  // if (!token) {
-  //   return <LForm setToken={setToken} />
-  // }
-
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>

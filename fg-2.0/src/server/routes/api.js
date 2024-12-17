@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const axios = require('axios');
 
 // Controllers
 const AdminCntrl = require('../controllers/adminCntrl');
@@ -24,30 +25,39 @@ router.use(cors());
 router.get('/test', UserCntrl.test);
 
 // ********** USER ROUTES ********** //
-router.post('/signup', async (req, res) => {
-
-    const {firstName, lastName, email, username, password} = req.body;
-
-    const data = {
-        firstName: firstName,
-        lastName: lastName, 
-        email: email, 
-        username: username,
-        password: password
-    }
+router.get('/signup', async (req, res) => {
 
     try {
-
-        console.log("post data: ", data);
-        
-        const newUser = new UserCntrl.createUser(data);
-
-        console.log("new user: ", newUser);
-        
-        res.status(200).json(newUser[0]);
+        const response = await axios.get("/api/signup");
+        res.json(response.data);
     } catch (error) {
-        res.status(400).json({message: error.message})
+        res.status(500).json({ error: 'An error occurred' });
     }
+
+    // console.log("res: ", res);
+    
+    // const {firstName, lastName, email, username, password} = req.body;
+
+    // const data = {
+    //     firstName: firstName,
+    //     lastName: lastName, 
+    //     email: email, 
+    //     username: username,
+    //     password: password
+    // }
+
+    // try {
+
+    //     console.log("post data: ", data);
+        
+    //     const newUser = new UserCntrl.createUser(data);
+
+    //     console.log("new user: ", newUser);
+        
+    //     res.status(200).json(newUser[0]);
+    // } catch (error) {
+    //     res.status(400).json({message: error.message})
+    // }
 });
 
 module.exports = router;

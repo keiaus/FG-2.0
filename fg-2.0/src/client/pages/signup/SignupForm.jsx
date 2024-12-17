@@ -4,13 +4,12 @@ import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
 import axios from "axios";
 
-const baseURL = "/signup";
-
 /**
  * USE `npm run dev -- --host`
  * @returns 
  */
 
+const baseURL = "/api/" + process.env.VITE_API_ENDPOINT + "/signup";
 
 const SignupForm = () => {
     const [firstName, setFirstName] = useState();
@@ -20,19 +19,8 @@ const SignupForm = () => {
     const [pass, setPass] = useState();
     const [pass2, setPass2] = useState();
 
-    // React.useEffect(() => {
-    //     axios.get(`${baseURL}`).then((response) => {
-    //         setFirstName(response.data.firstName);
-    //         setLastName(response.data.lastName);
-    //         setEmail(response.data.email);
-    //         setUsername(response.data.username);
-    //         setPass(response.data.pass);
-    //     });
-    // }, []);
-
     const onSubmitForm = async (event) => {
         event.preventDefault();
-
         if (pass !== pass2) {
             alert("Passwords must match");
         }
@@ -51,16 +39,9 @@ const SignupForm = () => {
             })
                 .then((response) => {
                     console.log("response: ", response);
-                    
-                    // setFirstName(response.data.firstName);
-                    // setLastName(response.data.lastName);
-                    // setEmail(response.data.email);
-                    // setUsername(response.data.username);
-                    // setPass(response.data.pass);
                 })
                 .catch((error) => {
                     console.log("ERRORRORORORORORO: ", error);
-
                 })
 
             alert("Account created");
