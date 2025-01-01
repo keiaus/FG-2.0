@@ -1,4 +1,5 @@
-console.log("server: ", require('dotenv').config({ path: process.env.SERVER_PATH }));
+const path = require('path');
+console.log("server: ", require('dotenv').config({ path: path.join(__dirname + 'fg-2.0\.env') }));
 const express = require('express');
 const app = express();
 const cors = require('cors');
