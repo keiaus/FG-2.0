@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-calendar": "^4.8.0"
+    "react-calendar": "^4.8.0",
+    "require": "^2.4.20"
   }
 }
