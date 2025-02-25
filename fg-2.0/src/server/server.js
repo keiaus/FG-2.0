@@ -1,8 +1,8 @@
 // const path = require('path');
 // console.log("server: ", require('dotenv').config({ path: path.join(__dirname + 'fg-2.0\.env') }));
-// const express = require('express');
-// const app = express();
-// const cors = require('cors');
+const express = require('express');
+const app = express();
+const cors = require('cors');
 
 /**
  * Fix for MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. 
@@ -11,9 +11,10 @@
  * npm uninstall mongoose
  * npm install mongoose@8.3.4
  */
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '/.env') });
 const mongoose = require('mongoose');
-const url = `${process.env.DB_URL}`
+const url = `${process.env.DB_URL}`;
 
 mongoose.connect(url)
     .then(() => console.log("Connected!"))
@@ -21,14 +22,12 @@ mongoose.connect(url)
         console.log(`Error connecting to db: ${error}`);
     })
 
-// const port = process.env.PORT;
+const port = process.env.PORT;
 
-// const api = require('./routes/api');
+const api = require('./routes/api');
 
-// app.use('/', cors(), api);
+app.use('/', cors(), api);
 
-// app.on('ready', cors(), () => {
-// app.listen(port, () => {
-//     console.log(`App is listening on port ${port}`)
-// })
-// }); 
+app.listen(port, () => {
+    console.log(`App is listening on port ${port}`)
+})

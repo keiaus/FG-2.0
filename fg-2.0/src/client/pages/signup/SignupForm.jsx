@@ -9,8 +9,6 @@ import axios from "axios";
  * @returns 
  */
 
-const baseURL = "/api/" + process.env.VITE_API_ENDPOINT + "/signup";
-
 const SignupForm = () => {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
@@ -30,18 +28,23 @@ const SignupForm = () => {
         }
 
         if (pass === pass2 && pass !== null && pass2 !== null) {
-            axios.post(baseURL, {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                username: username,
-                password: pass
-            })
+
+            let userData = {
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "username": username,
+                "pass": pass
+            }
+
+            console.log("userData: ", userData);
+
+            axios.post("/signup/api", {userData})
                 .then((response) => {
                     console.log("response: ", response);
                 })
                 .catch((error) => {
-                    console.log("ERRORRORORORORORO: ", error);
+                    console.log("error: ", error);
                 })
 
             alert("Account created");

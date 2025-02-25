@@ -22,6 +22,8 @@ exports.createUser = async (req, res) => {
     try {
         res.setHeader('Access-Control-Allow-Origin', '*');
         addResponse = await UserData.collection.insertMany([req.body]);
+        console.log("addResponse: ", addResponse);
+        
         res.status(200).json(addResponse[0]);
     } catch (error) {
         console.error(error);

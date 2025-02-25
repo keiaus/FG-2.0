@@ -21,43 +21,43 @@ const UserCntrl = require('../controllers/userCntrl');
 // Data api
 
 router.use(cors());
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
-router.get('/test', UserCntrl.test);
+router.get("/status", (request, response) => {
+    const status = {
+        "Status": "Running"
+    };
+    response.send(status);
+})
 
 // ********** USER ROUTES ********** //
-router.get('/signup', async (req, res) => {
+router.post('/signup', (req, res) => {
 
-    try {
-        const response = await axios.get("/api/signup");
-        res.json(response.data);
-    } catch (error) {
-        res.status(500).json({ error: 'An error occurred' });
-    }
-
-    // console.log("res: ", res);
-    
-    // const {firstName, lastName, email, username, password} = req.body;
-
-    // const data = {
-    //     firstName: firstName,
-    //     lastName: lastName, 
-    //     email: email, 
-    //     username: username,
-    //     password: password
-    // }
+    console.log("In post");
+    console.log("body is: ", req.body);
+    res.send(req.body);
 
     // try {
-
-    //     console.log("post data: ", data);
-        
-    //     const newUser = new UserCntrl.createUser(data);
+    //     const newUser = new UserCntrl.createUser(req.body);
 
     //     console.log("new user: ", newUser);
-        
+
     //     res.status(200).json(newUser[0]);
     // } catch (error) {
     //     res.status(400).json({message: error.message})
     // }
 });
+
+// router.post('/signup', (req, res) => {
+//     const status = {
+//         "Status": "User created"
+//     }
+//     res.send(status);
+// });
+
+// router.post('/signup', (req, res) => {
+//     res.send("Got a post request");
+// })
 
 module.exports = router;
