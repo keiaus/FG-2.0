@@ -41,7 +41,6 @@ const client = new MongoClient(uri);
 
 try {
     client.connect();
-    console.log("client: ", client);
     
 } catch (error) {
     console.log(error);
@@ -52,9 +51,6 @@ finally {
 }
 
 const UserData = mongoose.model(process.env.COLLECTION_A, userSchema);
-
-console.log("UserData: ", UserData);
-
 
 module.exports = {
     UserData
