@@ -1,10 +1,11 @@
 //const { MongoClient } = require('mongodb');
 const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
 const path = require('path');
-const dotenv = require('dotenv');
-const envPath = path.resolve(__dirname, '..', '..', '.env');
-dotenv.config({ path: envPath });
-const users = `${process.env.USERS}`;
+require('dotenv').config({path:path.join(__dirname, '..', '.env')});
+const uri = `${process.env.URI}`;
+
+console.log("start userModel");
 
 const userSchema = new mongoose.Schema(
     {
@@ -36,24 +37,24 @@ const userSchema = new mongoose.Schema(
     },
     { versionKey: false }
 );
+const client = new MongoClient(uri);
 
-// const client = new MongoClient(url);
+try {
+    client.connect();
+    console.log("client: ", client);
+    
+} catch (error) {
+    console.log(error);
+}
 
-// try {
-//     await client.connect();
-// } catch (error) {
-//     console.log(error);
-// }
+finally {
+    client.close();
+}
 
-// finally {
-//     await client.close();
-// }
+const UserData = mongoose.model(process.env.COLLECTION_A, userSchema);
 
-// var db = client.db(dbName);
+console.log("UserData: ", UserData);
 
-// const collection = db.collection('users');
-
-const UserData = mongoose.model(users, userSchema);
 
 module.exports = {
     UserData

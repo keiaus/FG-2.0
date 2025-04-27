@@ -36,17 +36,17 @@ router.post('/signup', (req, res) => {
 
     console.log("In post");
     console.log("body is: ", req.body);
-    res.send(req.body);
+    //res.send(req.body);
 
-    // try {
-    //     const newUser = new UserCntrl.createUser(req.body);
+    try {
+        const newUser = UserCntrl.createUser(req.body);
 
-    //     console.log("new user: ", newUser);
+        console.log("new user: ", newUser);
 
-    //     res.status(200).json(newUser[0]);
-    // } catch (error) {
-    //     res.status(400).json({message: error.message})
-    // }
+        res.status(200).json(newUser[0]);
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
 });
 
 // router.post('/signup', (req, res) => {
