@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@esbuild/darwin-arm64": "^0.24.2",
     "@mui/material": "^5.11.12",
     "axios": "^1.8.2",
     "axis": "^1.0.0",
@@ -22,7 +23,8 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-calendar": "^4.8.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "require": "^2.4.20"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

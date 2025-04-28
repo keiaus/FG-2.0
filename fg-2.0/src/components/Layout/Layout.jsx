@@ -24,9 +24,9 @@ const Layout = () => {
                         <li>
                             <Link to="/login">Log In</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to="/testform">Test Page</Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             </div>

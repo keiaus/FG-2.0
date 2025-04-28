@@ -1,13 +1,5 @@
 const UserData = require('../models/user/userModel');
 
-// CRUD stuff for the user
-
-// For api tests
-exports.test = async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.json({'test': 'okay'});
-}
-
 /**
  * Inserts a new user to the collection
  * @param {*} req 
@@ -15,13 +7,15 @@ exports.test = async (req, res) => {
  */
 exports.createUser = async (req, res) => {
 
-    console.log("request: ", req);
+    console.log("request in userCntrl: ", req);
     
     let addResponse = null;
     
     try {
-        res.setHeader('Access-Control-Allow-Origin', '*');
+        // res.setHeader('Access-Control-Allow-Origin', '*');
         addResponse = await UserData.collection.insertMany([req.body]);
+        console.log("addResponse: ", addResponse);
+        
         res.status(200).json(addResponse[0]);
     } catch (error) {
         console.error(error);
