@@ -26,7 +26,7 @@ router.use(express.urlencoded({ extended: true }));
 
 router.get("/status", (request, response) => {
     const status = {
-        "Status": "Running"
+        "Status": "Running in POSTMAN"
     };
     response.send(status);
 })

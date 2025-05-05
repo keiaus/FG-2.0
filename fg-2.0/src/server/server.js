@@ -12,14 +12,14 @@ const cors = require('cors');
  * npm install mongoose@8.3.4
  */
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '/.env') });
+require('dotenv').config({ path: path.join(__dirname, '../../', '/.env') });
 const mongoose = require('mongoose');
-const url = `${process.env.DB_URL}`;
+const url = `${process.env.URI}`;
 
 mongoose.connect(url)
     .then(() => console.log("Connected!"))
     .catch((error) => {
-        console.log(`Error connecting to db: ${error}`);
+        console.error(`Error connecting to db: ${error}`);
     })
 
 const port = process.env.PORT;

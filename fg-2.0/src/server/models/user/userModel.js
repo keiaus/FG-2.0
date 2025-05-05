@@ -2,8 +2,10 @@
 const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 const path = require('path');
-require('dotenv').config({path:path.join(__dirname, '..', '.env')});
+require('dotenv').config({path:path.join(__dirname, '../../../../', '.env')});
 const uri = `${process.env.URI}`;
+const COLLECTION_A = `${process.env.COLLECTION_A}`;
+const db = `${process.env.DB_NAME}`;
 
 console.log("start userModel");
 
@@ -50,8 +52,13 @@ finally {
     client.close();
 }
 
-const UserData = mongoose.model(process.env.COLLECTION_A, userSchema);
+const UserData = mongoose.model(COLLECTION_A, userSchema);
 
 module.exports = {
-    UserData
+    UserData,
+    mongoose,
+    MongoClient,
+    uri,
+    COLLECTION_A,
+    db
 };
