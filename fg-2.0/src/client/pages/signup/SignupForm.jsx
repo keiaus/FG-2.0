@@ -36,10 +36,10 @@ const SignupForm = () => {
                 "username": username,
                 "pass": pass
             }
-
-            console.log("userData: ", userData);
-
-            axios.post("/signup/api", {userData})
+            
+            axios.post("/api/signup", {
+                userData
+            })
                 .then((response) => {
                     console.log("response: ", response);
                 })
@@ -47,7 +47,16 @@ const SignupForm = () => {
                     console.log("error: ", error);
                 })
 
+            
             alert("Account created");
+
+            setFirstName("");
+            setLastName("");
+            setUsername("");
+            setEmail("");
+            setPass("");
+            setPass2("");
+
         }
     }
 
