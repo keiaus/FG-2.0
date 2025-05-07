@@ -42,4 +42,14 @@ router.post('/signup', (req, res) => {
     }
 });
 
+router.post('/login', (req, res) => {
+    try {
+        const existingUser = UserCntrl.getUser(req.body);
+        res.status(200).json(existingUser[0]);
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+
+})
+
 module.exports = router;

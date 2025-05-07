@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
+import axios from "axios";
 // import propTypes from 'prop-types';
 
 // const loginUser = async (credentials) => {
@@ -28,14 +29,22 @@ const LoginForm = () => {
 
         if (username != null && pass != null) {
             try {
-                const body = { username, pass };
-                const response = await fetch("http://localhost:6500/login", {
-                    method: "GET",
+                const body = {
+                    "username": username,
+                    "pass": pass
+                }
+                axios.post("/api/login", {
+                    method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify(body)
                 })
-                alert("You're logged in as");
-                console.log(response);
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                // alert("You're logged in as");
             } catch (error) {
                 console.error(error.message);
             }
