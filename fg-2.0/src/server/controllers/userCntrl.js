@@ -32,18 +32,19 @@ exports.createUser = async (req, res) => {
  */
 exports.getUser = async (req, res) => {
     let getResponse = null;
-
-    console.log("req: ", req);
     
     try {
         const db = client.db(UserData.db);
         const coll = db.collection(UserData.COLLECTION_A);
-        //getResponse = await coll.find().where({"username": req.body.username}).where({"pass": req.body.pass}).exec();
-        getResponse = coll.find({username: req.body.username});
-        console.log("getResponse: ", getResponse);
+        let parsedReq = JSON.parse(req.body);
         
+        getResponse = await coll.find({username: parsedReq["username"], pass: parsedReq["pass"]}).toArray();
     } catch (error) {
         console.error(error);
+    }
+
+    if (getResponse) {
+        console.log("getResponse: ", getResponse);
     }
 
 }
