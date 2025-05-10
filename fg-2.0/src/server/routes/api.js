@@ -42,13 +42,13 @@ router.post('/signup', (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.get('/login', async (req, res) => {
     try {
-        console.log("req.body: ", req.body);
+        console.log("req.body in login: ", req.body);
         let parsedReq = JSON.parse(req.body);
         const existingUser = await UserCntrl.getUser(parsedReq);
         console.log("existingUser: ", existingUser);
-        res.status(200).json(existingUser[0]);
+        res.status(200).json(req.body);
     } catch (error) {
         res.status(400).json({message: error.message})
     }

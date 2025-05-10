@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
+import PropTypes from 'prop-types';
 import axios from "axios";
-// import propTypes from 'prop-types';
 
-// const loginUser = async (credentials) => {
-//     return fetch('http://localhost:6500/lform', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(credentials)
-//     })
-//     .then(data => data.json())
-// }
+const loginUser = async (credentials) => {
+    console.log("credentials: ", credentials);
+    
+    return fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+    .then(data => data.json())
+}
 
-const LoginForm = () => {
+const LoginForm = ({setToken}) => {
 
     const [username, setUsername] = useState();
     const [pass, setPass] = useState();
@@ -49,6 +51,13 @@ const LoginForm = () => {
                 console.error(error.message);
             }
         }
+
+        // const token = await loginUser({
+        //     username,
+        //     pass
+        // });
+        
+        // setToken(token);
         
     }
 
@@ -77,6 +86,6 @@ const LoginForm = () => {
 
 export default LoginForm;
 
-// LForm.propTypes = {
-//     setToken: propTypes.func.isRequired
-// }
+LoginForm.propTypes = {
+    setToken: PropTypes.func.isRequired
+}
