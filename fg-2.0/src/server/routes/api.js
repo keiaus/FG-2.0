@@ -55,4 +55,14 @@ router.get('/login', async (req, res) => {
 
 })
 
+router.post('/login', async (req, res) => {
+    try {
+        await UserCntrl.getUser(req.body.body);
+        res.status(200).json(req.body.body);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+
+})
+
 module.exports = router;

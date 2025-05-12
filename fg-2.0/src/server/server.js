@@ -29,7 +29,7 @@ const api = require('./routes/api');
 app.use('/', cors(), api);
 app.use('/login', (req, res) => {
     res.send({
-        token: 'test123'
+        token: '08Ueg%62**9sh10e'
     })
 })
 

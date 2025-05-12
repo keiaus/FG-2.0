@@ -10,23 +10,30 @@ import './App.css';
 
 const App = () => {
   const { token, setToken } = useToken();
+
+  /**
+   * TODO: Fix login route after token initialization
+   */
   if (!token) {
+    console.log("in if statement");
+
     return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/home" element={<HomePage />}></Route>
-          <Route path="/calendar" element={<CalendarPage />}></Route>
-          <Route path="/about" element={<AboutPage />}></Route>
-          <Route path="/documentation" element={<DocumentationPage />}></Route>
-          <Route path="/signup" element={<SignupForm />}></Route>
-          <Route path="/login" element={<LoginForm setToken={setToken} />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="/home" element={<HomePage />}></Route>
+            <Route path="/calendar" element={<CalendarPage />}></Route>
+            <Route path="/about" element={<AboutPage />}></Route>
+            <Route path="/documentation" element={<DocumentationPage />}></Route>
+            <Route path="/signup" element={<SignupForm />}></Route>
+            <Route path="/login" element={<LoginForm />} setToken={setToken} ></Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    );
   }
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -37,11 +44,12 @@ const App = () => {
           <Route path="/about" element={<AboutPage />}></Route>
           <Route path="/documentation" element={<DocumentationPage />}></Route>
           <Route path="/signup" element={<SignupForm />}></Route>
-          <Route path="/login" element={<LoginForm />}></Route>
+          {/* <Route path="/login" element={<LoginForm />} ></Route> */}
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
+
 
 export default App;
