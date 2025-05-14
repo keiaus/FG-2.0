@@ -11,12 +11,8 @@ import './App.css';
 const App = () => {
   const { token, setToken } = useToken();
 
-  /**
-   * TODO: Fix login route after token initialization
-   */
   if (!token) {
-    console.log("in if statement");
-
+    
     return (
       <div className="App">
         <BrowserRouter>
@@ -27,11 +23,13 @@ const App = () => {
             <Route path="/about" element={<AboutPage />}></Route>
             <Route path="/documentation" element={<DocumentationPage />}></Route>
             <Route path="/signup" element={<SignupForm />}></Route>
-            <Route path="/login" element={<LoginForm />} setToken={setToken} ></Route>
+            <Route path="/login" element={<LoginForm setToken={setToken} />} ></Route>
           </Routes>
         </BrowserRouter>
+
       </div>
-    );
+    )
+
   }
 
   return (
@@ -44,12 +42,11 @@ const App = () => {
           <Route path="/about" element={<AboutPage />}></Route>
           <Route path="/documentation" element={<DocumentationPage />}></Route>
           <Route path="/signup" element={<SignupForm />}></Route>
-          {/* <Route path="/login" element={<LoginForm />} ></Route> */}
+          <Route path="/login" element={<LoginForm />} ></Route>
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
-
 
 export default App;

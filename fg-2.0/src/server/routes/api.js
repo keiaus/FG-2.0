@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const axios = require('axios');
 
 // Controllers
 const AdminCntrl = require('../controllers/adminCntrl');
@@ -26,7 +25,7 @@ router.use(express.urlencoded({ extended: true }));
 
 router.get("/status", (request, response) => {
     const status = {
-        "Status": "Running"
+        "status": "Running"
     };
     response.send(status);
 })
@@ -38,29 +37,32 @@ router.post('/signup', (req, res) => {
         const newUser = UserCntrl.createUser(req.body);
         res.status(200).json(newUser[0]);
     } catch (error) {
-        res.status(400).json({message: error.message})
+        res.status(400).json({ message: error.message })
     }
 });
 
 router.get('/login', async (req, res) => {
     try {
-        console.log("req.body in login: ", req.body);
-        let parsedReq = JSON.parse(req.body);
-        const existingUser = await UserCntrl.getUser(parsedReq);
-        console.log("existingUser: ", existingUser);
-        res.status(200).json(req.body);
+        // res.send({
+        //     token: '08Ueg%62**9sh10e',
+        //     message: "GET request to login"
+        // })
+        res.send("GET request to login");
     } catch (error) {
-        res.status(400).json({message: error.message})
+        res.send(error);
     }
 
 })
 
 router.post('/login', async (req, res) => {
+    console.log("req*********: ", req);
+
     try {
         await UserCntrl.getUser(req.body.body);
-        res.status(200).json(req.body.body);
+        res.send({token: '08Ueg%62**9sh10e', ...req.body.body})
+        //res.status(200).json(req.body.body);
     } catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(400).json({ message: error.message });
     }
 
 })
