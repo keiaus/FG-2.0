@@ -52,14 +52,13 @@ const LoginForm = ({ setToken }) => {
                 })
                     .then(async (response) => {
                         if (response.status === 200 && response.data.data.length != 0) {
+                            setUsername(username);
+                            setPass(pass);
                             return await loginUser({
                                 username,
                                 pass
                             }).then((res) => {
-                                let token = res?.data;
-                                setUsername(username);
-                                setPass(pass);
-                                setToken(token);
+                                setToken(res?.data);
                                 alert(`Logged in as ${username}`);
                             }).catch((error) => {
                                 console.error(error);
