@@ -43,11 +43,9 @@ router.post('/signup', (req, res) => {
 
 router.get('/login', async (req, res) => {
     try {
-        // res.send({
-        //     token: '08Ueg%62**9sh10e',
-        //     message: "GET request to login"
-        // })
-        res.send("GET request to login");
+        res.send({
+            token: '08Ueg%62**9sh10e'
+        })
     } catch (error) {
         res.send(error);
     }
@@ -55,12 +53,9 @@ router.get('/login', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    console.log("req*********: ", req);
-
     try {
-        await UserCntrl.getUser(req.body.body);
-        res.send({token: '08Ueg%62**9sh10e', ...req.body.body})
-        //res.status(200).json(req.body.body);
+        let response = await UserCntrl.getUser(req.body.body);
+        res.status(200).json({data: response});
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

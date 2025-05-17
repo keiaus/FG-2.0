@@ -5,34 +5,26 @@ import PropTypes from 'prop-types';
 import axios from "axios";
 
 const loginUser = async (credentials) => {
-    console.log("credentials: ", credentials);
-
     const body = {
         "username": credentials.username,
         "pass": credentials.pass
     }
 
-    return axios.post('/api/login', {
+    return await axios.get('/api/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: body
     })
-    .then((response) => {
-        console.log("response => ", response);
-    })
-    .catch((error) => {
-        console.error(error);
-    })
-    //  return fetch('/api/login', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(credentials)
-    // })
-    // .then(data => data.json())
+        .then(async (response) => {
+            console.log("response: ", response);
+            return response;
+        })
+        .catch(async (error) => {
+            console.log("error: ", error);
+
+        })
 }
 
 const LoginForm = ({ setToken }) => {
@@ -43,50 +35,49 @@ const LoginForm = ({ setToken }) => {
     const onSubmitForm = async (event) => {
         event.preventDefault();
 
-        // let token = null;
-        // console.log("assigning token to user");
+        if (username == null || pass == null) {
+            alert("Please enter a username and password.")
+        }
 
-        let token = await loginUser({
-            username,
-            pass
-        });
+        if (username != null && pass != null) {
+            try {
+                const body = {
+                    "username": username,
+                    "pass": pass
+                }
+                axios.post("/api/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: body
+                })
+                    .then(async (response) => {
+                        if (response.status === 200 && response.data.data.length != 0) {
+                            return await loginUser({
+                                username,
+                                pass
+                            }).then((res) => {
+                                let token = res?.data;
+                                setUsername(username);
+                                setPass(pass);
+                                setToken(token);
+                                alert(`Logged in as ${username}`);
+                            }).catch((error) => {
+                                console.error(error);
+                            })
 
-        console.log("token******: ", token);
+                        }
 
-
-        setToken(token);
-
-        // if (username == null || pass == null) {
-        //     alert("Please enter a username and password.")
-        // }
-
-        // if (username != null && pass != null) {
-        //     try {
-        //         const body = {
-        //             "username": username,
-        //             "pass": pass
-        //         }
-        //         axios.post("/api/login", {
-        //             method: "POST",
-        //             headers: { "Content-Type": "application/json" },
-        //             body: body
-        //         })
-        //             .then(async (response) => {
-        //                 /**
-        //                  * TODO: Assign the token to the user after a successful login
-        //                  */
-        //                 if (response.status === 200) {
-
-        //                 }
-        //                 console.log(response);
-        //             })
-        //             .catch((error) => {
-        //                 console.error(error);
-        //             })
-        //     } catch (error) {
-        //         console.error(error.message);
-        //     }
-        // }
+                        else {
+                            alert("Username or password is incorrect")
+                        }
+                    })
+                    .catch(async (error) => {
+                        console.error(error);
+                    })
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
 
 
     }

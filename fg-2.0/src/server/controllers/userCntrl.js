@@ -40,13 +40,8 @@ exports.getUser = async (req, res) => {
         const db = client.db(UserData.db);
         const coll = db.collection(UserData.COLLECTION_A);
         getResponse = await coll.find({"userData.username": req.username, "userData.pass": req.pass}).toArray();
-        console.log("getResponse: ", getResponse);
+        return getResponse;
     } catch (error) {
         console.error(error);
     }
-
-    // if (getResponse) {
-        
-    // }
-
 }
