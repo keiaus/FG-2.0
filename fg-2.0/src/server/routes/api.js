@@ -31,11 +31,11 @@ router.get("/status", (request, response) => {
 })
 
 // ********** USER ROUTES ********** //
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
 
     try {
-        const newUser = UserCntrl.createUser(req.body);
-        res.status(200).json(newUser[0]);
+        const newUser = await UserCntrl.createUser(req.body);
+        res.status(200).json(newUser);
     } catch (error) {
         res.status(400).json({ message: error.message })
     }

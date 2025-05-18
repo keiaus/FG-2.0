@@ -1,6 +1,7 @@
-import React from "react";
 import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
+import HomePage from "../home/Home";
+import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -36,27 +37,33 @@ const SignupForm = () => {
                 "username": username,
                 "pass": pass
             }
-            
+
             axios.post("/api/signup", {
                 userData
             })
                 .then((response) => {
                     console.log("response: ", response);
+                    if (response.status === 200) {
+                        if (response?.data?.existingUsername?.length > 0) {
+                            return alert("This username is already taken")
+                        }
+                        if (response?.data?.existingEmail?.length > 0) {
+                            return alert("This email is already associated with another account")
+                        }
+
+                        alert("Account created");
+
+                        setFirstName("");
+                        setLastName("");
+                        setUsername("");
+                        setEmail("");
+                        setPass("");
+                        setPass2("");
+                    }
                 })
                 .catch((error) => {
                     console.log("error: ", error);
                 })
-
-            
-            alert("Account created");
-
-            setFirstName("");
-            setLastName("");
-            setUsername("");
-            setEmail("");
-            setPass("");
-            setPass2("");
-
         }
     }
 

@@ -27,11 +27,6 @@ const port = process.env.PORT;
 const api = require('./routes/api');
 
 app.use('/', cors(), api);
-app.use('/login', (req, res) => {
-    res.send({
-        token: '08Ueg%62**9sh10e'
-    })
-})
 
 app.listen(port, () => {
     console.log(`App is listening on port ${port}`)

@@ -2,6 +2,22 @@ body {
   background-color: dodgerblue;
 }
 
+#start-body {
+  right: auto;  
+}
+
+#end-body {
+  right: auto;
+}
+
+#start-label {
+  font-size: 30px;
+}
+
+#end-label {
+  font-size: 30px;
+}
+
 #calendar-body {
   margin: auto;
 }
