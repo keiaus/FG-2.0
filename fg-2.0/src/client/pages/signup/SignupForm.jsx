@@ -74,7 +74,9 @@ const SignupForm = () => {
                 <Layout />
             </div>
             <div id="sform-div">
-                <h1 id="signup-h1">Sign Up</h1>
+                <header>
+                    <h1 id="signup-h1">Sign Up</h1>
+                </header>
                 <form onSubmit={onSubmitForm}>
                     <label htmlFor="firstName">First Name: </label><br />
                     <input type="text" id="firstName" required value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />

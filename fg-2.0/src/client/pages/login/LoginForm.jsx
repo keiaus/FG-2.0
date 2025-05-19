@@ -88,7 +88,9 @@ const LoginForm = ({ setToken }) => {
                 <Layout />
             </div>
             <div id="lform-div">
-                <h1 id="login-h1">Log In</h1>
+                <header>
+                    <h1 id="login-h1">Log In</h1>
+                </header>
                 <form onSubmit={onSubmitForm}>
                     <label htmlFor="username">Username: </label><br />
                     <input type="text" id="username" value={username} onChange={event => setUsername(event.target.value)}></input><br />

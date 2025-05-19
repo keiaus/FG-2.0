@@ -8,7 +8,9 @@ const HomePage = () => {
             <Layout />
             <div id="home">
                 <title>Home | FG-2.0</title>
-                <h1 id="fg-header">Welcome to FG 2.0</h1>
+                <header>
+                    <h1 id="fg-header">Welcome to FG 2.0</h1>
+                </header>
             </div>
             <Footer />
         </>
