@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
+import HomePage from "../home/Home";
 import PropTypes from 'prop-types';
 import axios from "axios";
 
@@ -31,6 +32,10 @@ const LoginForm = ({ setToken }) => {
 
     const [username, setUsername] = useState();
     const [pass, setPass] = useState();
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    console.log("loggedIn: ", loggedIn);
+    
 
     const onSubmitForm = async (event) => {
         event.preventDefault();
@@ -60,6 +65,7 @@ const LoginForm = ({ setToken }) => {
                             }).then((res) => {
                                 setToken(res?.data);
                                 alert(`Logged in as ${username}`);
+                                setLoggedIn(true);
                             }).catch((error) => {
                                 console.error(error);
                             })
@@ -81,29 +87,39 @@ const LoginForm = ({ setToken }) => {
 
     }
 
-    return (
-        <>
-            <title>Log In | FG-2.0</title>
-            <div>
-                <Layout />
-            </div>
-            <div id="lform-div">
-                <header>
-                    <h1 id="login-h1">Log In</h1>
-                </header>
-                <form onSubmit={onSubmitForm}>
-                    <label htmlFor="username">Username: </label><br />
-                    <input type="text" id="username" value={username} onChange={event => setUsername(event.target.value)}></input><br />
-                    <br />
-                    <label htmlFor="pass">Password: </label><br />
-                    <input type="password" id="pass" value={pass} onChange={event => setPass(event.target.value)}></input><br />
-                    <br />
-                    <input type="submit" id="submit" value={"Log In"}></input>
-                </form>
-            </div>
-            <Footer />
-        </>
-    )
+    if (loggedIn) {
+        console.log("we're logged in");
+        
+        return <HomePage />
+    }
+
+    else {
+        return (
+            <>
+                <title>Log In | FG-2.0</title>
+                <div>
+                    <Layout />
+                </div>
+                <div id="lform-div">
+                    <header>
+                        <h1 id="login-h1">Log In</h1>
+                    </header>
+                    <form onSubmit={onSubmitForm}>
+                        <label htmlFor="username">Username: </label><br />
+                        <input type="text" id="username" value={username} onChange={event => setUsername(event.target.value)}></input><br />
+                        <br />
+                        <label htmlFor="pass">Password: </label><br />
+                        <input type="password" id="pass" value={pass} onChange={event => setPass(event.target.value)}></input><br />
+                        <br />
+                        <input type="submit" id="submit" value={"Log In"}></input>
+                    </form>
+                </div>
+                <Footer />
+            </>
+        )
+    }
+
+
 }
 
 export default LoginForm;
