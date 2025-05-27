@@ -1,7 +1,5 @@
 import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
-import HomePage from "../home/Home";
-import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 

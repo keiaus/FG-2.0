@@ -7,15 +7,7 @@ const AdminCntrl = require('../controllers/adminCntrl');
 const BookingCntrl = require('../controllers/bookingCntrl');
 const FlightCntrl = require('../controllers/flightCntrl');
 const UserCntrl = require('../controllers/userCntrl');
-
-// For api tests
-// router.get('/test', SatdataController.test);
-
-// Data Api
-// router.get('/getalldata', SatdataController.getAllData);
-// router.get('/get24hourdata', SatdataController.get24hourData);
-// router.get('/getndata/:numberd', SatdataController.getNdata);
-// router.get('/gethistorydata/:times', SatdataController.getHistoryData);
+const CalendarCntrl = require('../controllers/calendarCntrl');
 
 // Data api
 
@@ -31,6 +23,7 @@ router.get("/status", (request, response) => {
 })
 
 // ********** USER ROUTES ********** //
+
 router.post('/signup', async (req, res) => {
 
     try {
@@ -54,12 +47,36 @@ router.get('/login', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        let response = await UserCntrl.getUser(req.body.body);
+        const response = await UserCntrl.getUser(req.body.body);
         res.status(200).json({data: response});
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 
 })
+
+
+// ********** CALENDAR ROUTES ********** //
+
+router.post('/calendar', async (req, res) => {
+    try {
+        const newCalendar = await CalendarCntrl.create(req.body.body);
+        res.status(200).json({data: newCalendar});
+        
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+})
+
+router.get('/calendar', async (req, res) => {
+    try {
+        const getResponse = await CalendarCntrl.retrieve(req.body.body);
+        console.log("getResponse: ", getResponse);
+        res.status(200).json({data: getResponse});
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+})
+
 
 module.exports = router;
