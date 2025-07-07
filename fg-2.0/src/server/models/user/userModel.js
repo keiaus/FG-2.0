@@ -9,35 +9,40 @@ const db = `${process.env.DB_NAME}`;
 
 console.log("start userModel in user");
 
-/**
- * TODO: Create validation checks for each parameter
- */
-
 const userSchema = new mongoose.Schema(
     {
         firstName: {
             type: String,
             trim: true,
+            maxLength: [50, "First name cannot exceed 50 characters"],
+            minLength: [3, "First name cannot be less than 3 characters"],
             default: null
         },
         lastName: {
             type: String,
             trim: true,
+            maxLength: [50, "Last name cannot exceed 50 characters"],
+            minLength: [3, "Last name cannot be less than 3 characters"],
             default: null
         },
         email: {
             type: String,
             trim: true,
+            maxLength: [254, "Email cannot exceed 254 characters"],
+            minLength: [3, "First name cannot be less than 3 characters"],
             default: null
         },
         username: {
             type: String,
             trim: true,
+            maxLength: [32, "Username cannot exceed 32 characters"],
             default: null
         },
         password: {
             type: String,
             trim: true,
+            maxLength: [64, "Password cannot exceed 64 characters"],
+            minLength: [14, "Password cannot be less than 14 characters"],
             default: null
         },
     },
@@ -57,6 +62,25 @@ finally {
 }
 
 const UserData = mongoose.model(COLLECTION_A, userSchema);
+
+const userData = new UserData();
+
+let error;
+try {
+  await userData.save();
+} catch (err) {
+  error = err;
+  console.log("errors: ", error);
+  
+}
+
+// assert.equal(error.errors['firstName'].message,
+//   'Path `name` is required.');
+
+// error = userData.validateSync();
+// assert.equal(error.errors['name'].message,
+//   'Path `name` is required.');
+
 
 module.exports = {
     UserData,
