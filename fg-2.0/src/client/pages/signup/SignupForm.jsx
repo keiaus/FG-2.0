@@ -16,6 +16,15 @@ const SignupForm = () => {
     const [pass, setPass] = useState();
     const [pass2, setPass2] = useState();
 
+    const clearFormData = async () => {
+        setFirstName("");
+        setLastName("");
+        setUsername("");
+        setEmail("");
+        setPass("");
+        setPass2("");
+    }
+
     const onSubmitForm = async (event) => {
         event.preventDefault();
         if (pass !== pass2) {
@@ -51,12 +60,7 @@ const SignupForm = () => {
 
                         alert("Account created");
 
-                        setFirstName("");
-                        setLastName("");
-                        setUsername("");
-                        setEmail("");
-                        setPass("");
-                        setPass2("");
+                        clearFormData();
                     }
                 })
                 .catch((error) => {
