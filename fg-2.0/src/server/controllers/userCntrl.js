@@ -54,14 +54,50 @@ exports.createUser = async (req, res) => {
             }
 
             if (existingUsername.length === 0 && existingEmail.length === 0) {
+                let bUserSaved = false;
+
                 try {
-                    addResponse = await coll.insertOne(req);
-                    return addResponse;
+                    var newUser = new UserData.UserData({
+                        firstName: req.userData.firstName,
+                        lastName: req.userData.lastName,
+                        email: req.userData.email,
+                        username: req.userData.username,
+                        password: req.userData.pass
+                    });
+
+                    /**
+                     * TODO: Test that this actually works
+                     */
+
+                    newUser.save()
+                        .then(async savedUser => {
+                            console.log("SUCCESS");
+                            console.log(savedUser);
+                            addResponse = await coll.insertOne(req);
+                            return addResponse;
+                        })
+                        .catch(err => {
+                            console.log("ERROR");
+                            console.log(err);
+                        })
+
+                } catch (error) {
+                    console.error(error, "error saving new user");
+                }
+
+                try {
+                    if (bUserSaved) {
+
+                    }
                 } catch (error) {
                     console.error(error);
                 }
             }
         }
+    }
+
+    else {
+        console.error("error connecting to db");
     }
 }
 

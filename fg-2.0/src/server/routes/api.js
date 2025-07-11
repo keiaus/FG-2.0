@@ -26,6 +26,11 @@ router.get("/status", (request, response) => {
 
 router.post('/signup', async (req, res) => {
 
+    /**
+     * TODO: Implement logic for validation response
+     * Should stop the creation process if the validations aren't met
+     */
+
     try {
         const newUser = await UserCntrl.createUser(req.body);
         res.status(200).json(newUser);

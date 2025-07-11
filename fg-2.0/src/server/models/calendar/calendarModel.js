@@ -7,7 +7,7 @@ const uri = `${process.env.URI}`;
 const COLLECTION_B = `${process.env.COLLECTION_B}`;
 const db = `${process.env.DB_NAME}`;
 
-console.log("start userModel in calendar");
+console.log("start calendarModel");
 
 /**
  * TODO: Create validation checks for each parameter
