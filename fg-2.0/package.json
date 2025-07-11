@@ -24,7 +24,7 @@
     "react": "^18.2.0",
     "react-calendar": "^4.8.0",
     "react-dom": "^18.2.0",
-    "require": "^2.4.20",
+    "require": "^0.4.4",
     "uglify-js": "^3.19.3"
   },
   "devDependencies": {
