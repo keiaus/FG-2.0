@@ -4,8 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 
 /**
- * USE `npm run dev -- --host`
- * @returns 
+ * This method creates the signup form
+ * @returns signup form for user
  */
 
 const SignupForm = () => {
@@ -58,9 +58,22 @@ const SignupForm = () => {
                             return alert("This email is already associated with another account")
                         }
 
-                        alert("Account created");
+                        if (response?.data?.errors) {
+                            for (const [key, value] of Object.entries(response?.data?.errors)) {
+                                return alert(`${value?.message}`);
+                            }
+                        }
 
-                        clearFormData();
+                        else {
+                            alert("Account created");
+                            clearFormData();
+                        }
+
+
+                    }
+
+                    else {
+                        return alert("Issue with creating user")
                     }
                 })
                 .catch((error) => {
