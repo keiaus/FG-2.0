@@ -25,65 +25,36 @@ exports.createUser = async (req, res) => {
 
     if (db !== null && coll !== null) {
         let addResponse = null;
-        let retrieveResponse = null;
+        let error = null;
 
         try {
-            retrieveResponse = await coll.find({}).toArray();
+            var newUser = new UserData.UserData({
+                firstName: req.userData.firstName,
+                lastName: req.userData.lastName,
+                email: req.userData.email,
+                username: req.userData.username,
+                password: req.userData.pass
+            });
 
-        } catch (error) {
-            console.error(error);
+            await newUser.save();
+
+
+        } catch (err) {
+            console.error(err, "error saving new user");
+            error = err;
+            return error;
         }
 
-        if (retrieveResponse != null && retrieveResponse.length !== 0) {
-            let existingUsername = await coll.find({ "userData.username": req.userData.username }).toArray();
-            let existingEmail = await coll.find({ "userData.email": req.userData.email }).toArray();
-
-            if (existingUsername.length > 0) {
-                let returnStruct = {
-                    "message": "This username is already taken",
-                    "existingUsername": existingUsername
-                }
-                return returnStruct;
-            }
-            if (existingEmail.length > 0) {
-                let returnStruct = {
-                    "message": "This email is already associated with another account",
-                    "existingEmail": existingEmail
-                }
-                return returnStruct;
+        if (error == null) {
+            try {
+                addResponse = await coll.insertOne(req);
+            } catch (error) {
+                console.error("Error inserting new user: ", error);
             }
 
-            if (existingUsername.length === 0 && existingEmail.length === 0) {
-                let error = null;
-
-                try {
-                    var newUser = new UserData.UserData({
-                        firstName: req.userData.firstName,
-                        lastName: req.userData.lastName,
-                        email: req.userData.email,
-                        username: req.userData.username,
-                        password: req.userData.pass
-                    });
-
-                    await newUser.save();
-                    
-
-                } catch (err) {
-                    console.error(err, "error saving new user");
-                    error = err;
-                    return error;
-                }
-
-                if (error == null) {
-                    try {
-                        addResponse = await coll.insertOne(req);
-                    } catch (error) {
-                        console.error("Error inserting new user: ", error);
-                    }
-                    
-                }
-            }
         }
+
+
     }
 
     else {
@@ -97,9 +68,6 @@ exports.createUser = async (req, res) => {
  * @param {*} res - returns the response status
  */
 exports.getUser = async (req, res) => {
-
-    console.log("in getUser");
-
     let getResponse = null;
 
     try {

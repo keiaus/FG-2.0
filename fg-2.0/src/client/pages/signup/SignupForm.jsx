@@ -16,6 +16,9 @@ const SignupForm = () => {
     const [pass, setPass] = useState();
     const [pass2, setPass2] = useState();
 
+    /**
+     * This method clears the form data after the user successfully signs up
+     */
     const clearFormData = async () => {
         setFirstName("");
         setLastName("");
@@ -25,6 +28,10 @@ const SignupForm = () => {
         setPass2("");
     }
 
+    /**
+     * This method creates the submit form 
+     * @param {*} event handles the user's data entries on the screen
+     */
     const onSubmitForm = async (event) => {
         event.preventDefault();
         if (pass !== pass2) {
@@ -51,13 +58,6 @@ const SignupForm = () => {
                 .then((response) => {
                     console.log("response: ", response);
                     if (response.status === 200) {
-                        if (response?.data?.existingUsername?.length > 0) {
-                            return alert("This username is already taken")
-                        }
-                        if (response?.data?.existingEmail?.length > 0) {
-                            return alert("This email is already associated with another account")
-                        }
-
                         if (response?.data?.errors) {
                             for (const [key, value] of Object.entries(response?.data?.errors)) {
                                 return alert(`${value?.message}`);

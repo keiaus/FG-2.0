@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             trim: true,
             required: [true, "Email is required"],
+            unique: [true, "This Email is already associated with another account"],
             validate: {
                 validator: ((value) => {
                     return value.includes('@') && value.includes('.');
@@ -46,6 +47,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             trim: true,
             required: [true, "Username is required"],
+            unique: [true, "This Username is already taken"],
             maxLength: [32, "Username cannot exceed 32 characters"],
             minLength: [5, "Username cannot be less than 5 characters"]
         },
