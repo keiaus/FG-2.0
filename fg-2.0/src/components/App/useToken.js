@@ -17,7 +17,7 @@ const useToken = () => {
 
     return {
         setToken: saveToken,
-        token
+        ...token
     }
 }
 

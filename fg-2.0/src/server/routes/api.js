@@ -8,6 +8,7 @@ const BookingCntrl = require('../controllers/bookingCntrl');
 const FlightCntrl = require('../controllers/flightCntrl');
 const UserCntrl = require('../controllers/userCntrl');
 const CalendarCntrl = require('../controllers/calendarCntrl');
+const Utils = require('../utils/main');
 
 // Data api
 
@@ -42,7 +43,7 @@ router.post('/signup', async (req, res) => {
 router.get('/login', async (req, res) => {
     try {
         res.send({
-            token: '08Ueg%62**9sh10e'
+            token: Utils.tokenGenerator()
         })
     } catch (error) {
         res.send(error);

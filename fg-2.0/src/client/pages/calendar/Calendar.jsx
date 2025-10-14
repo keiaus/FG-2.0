@@ -7,20 +7,48 @@ import { useState } from "react";
 
 const CalendarPage = () => {
     const [calendarId, setCalendarId] = useState();
-    const [userId, setUserId] = useState("");
-    const [tokenId, setTokenId] = useState("");
+    const [userId, setUserId] = useState();
+    const [tokenId, setTokenId] = useState();
     const [dateRange, setDateRange] = useState(new Date());
 
     const onSubmitForm = async (event) => {
         event.preventDefault();
 
+        // TODO: Fix getters and setters
+        const items = { ...localStorage };
+        console.log("LOCAL STORAGE IN CALENDAR JSX *** ", items);
+
+        if (localStorage.getItem("token") != "") {
+            console.log("GET TOKEN -> ", localStorage.getItem("token"));
+            const token = JSON.parse(localStorage.getItem("token"));
+            setTokenId(token);
+            console.log("tokenId **** ", tokenId);
+        }
+
+        else {
+            return alert("Missing token");
+        }
+
+        if (localStorage.getItem("userId") != "") {
+            const username = JSON.parse(localStorage.getItem("userId"));
+            setUserId(username);
+            console.log("userId **** ", userId);
+        }
+
+        else {
+            return alert("Missing username");
+        }
+
         try {
             const body = {
                 "calendarId": 0,
-                "tokenId": "",
-                "userId": "",
+                "tokenId": tokenId,
+                "userId": userId,
                 "dateRange": dateRange
             }
+
+            console.log("body in CalendarJSX -> ", body);
+
 
             axios.post("/api/calendar", {
                 method: "POST",
@@ -30,12 +58,12 @@ const CalendarPage = () => {
                 .then(async (response) => {
 
                     console.log("response in submitform: ", response);
-                    
+
                     if (response.status === 200 && response.data.data.length != 0) {
 
                         console.log("response in submit cal: ", response);
                         alert("Dates saved successfully");
-                        
+
                     }
                 })
         } catch (error) {

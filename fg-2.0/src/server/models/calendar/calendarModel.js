@@ -9,10 +9,6 @@ const db = `${process.env.DB_NAME}`;
 
 console.log("start calendarModel");
 
-/**
- * TODO: Create validation checks for each parameter
- */
-
 const calendarSchema = new mongoose.Schema(
     {
         userId: {

@@ -64,6 +64,9 @@ const LoginForm = ({ setToken }) => {
                                 pass
                             }).then((res) => {
                                 setToken(res?.data);
+                                localStorage.setItem("userId", username);
+                                const items = {...localStorage};
+                                console.log("*** LOCAL STORAGE ***", items);
                                 alert(`Logged in as ${username}`);
                                 setLoggedIn(true);
                             }).catch((error) => {
