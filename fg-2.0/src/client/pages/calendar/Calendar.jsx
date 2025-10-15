@@ -3,41 +3,35 @@ import Layout from "../../../components/Layout/Layout";
 import Footer from "../../../components/Footer/Footer";
 import axios from "axios";
 import 'react-calendar/dist/Calendar.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CalendarPage = () => {
-    const [calendarId, setCalendarId] = useState();
     const [userId, setUserId] = useState();
     const [tokenId, setTokenId] = useState();
     const [dateRange, setDateRange] = useState(new Date());
 
+    if (localStorage.getItem("token") != "") {
+        useEffect(() => {
+            setTokenId(JSON.parse(localStorage.getItem("token")));
+        })
+    }
+
+    else {
+        return alert("Missing token");
+    }
+
+    if (localStorage.getItem("userId") != "") {
+        useEffect(() => {
+            setUserId(localStorage.getItem("userId"));
+        })
+    }
+
+    else {
+        return alert("Missing username");
+    }
+
     const onSubmitForm = async (event) => {
         event.preventDefault();
-
-        // TODO: Fix getters and setters
-        const items = { ...localStorage };
-        console.log("LOCAL STORAGE IN CALENDAR JSX *** ", items);
-
-        if (localStorage.getItem("token") != "") {
-            console.log("GET TOKEN -> ", localStorage.getItem("token"));
-            const token = JSON.parse(localStorage.getItem("token"));
-            setTokenId(token);
-            console.log("tokenId **** ", tokenId);
-        }
-
-        else {
-            return alert("Missing token");
-        }
-
-        if (localStorage.getItem("userId") != "") {
-            const username = JSON.parse(localStorage.getItem("userId"));
-            setUserId(username);
-            console.log("userId **** ", userId);
-        }
-
-        else {
-            return alert("Missing username");
-        }
 
         try {
             const body = {
