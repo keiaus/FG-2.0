@@ -85,7 +85,7 @@ const CalendarPage = () => {
                         </p>
                     ) : (
                         <p className="text-container">
-                            <span className="bold">Default selected date:</span>{' '}
+                            <span className="bold">Today's Date:</span>{' '}
                             {dateRange.toDateString()}
                         </p>
                     )}
