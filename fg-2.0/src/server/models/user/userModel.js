@@ -7,8 +7,6 @@ const uri = `${process.env.URI}`;
 const COLLECTION_A = `${process.env.COLLECTION_A}`;
 const db = `${process.env.DB_NAME}`;
 
-console.log("start userModel in user");
-
 /**
  * TODO: Add validation for email having "@" and "." in the wrong places
  * This method creates the user schema for the database
@@ -66,7 +64,7 @@ const client = new MongoClient(uri);
 try {
     client.connect();
 } catch (error) {
-    console.log(error);
+    console.error(error);
 }
 
 finally {

@@ -1,6 +1,5 @@
 import Calendar from "react-calendar";
 import Layout from "../../../components/Layout/Layout";
-import Footer from "../../../components/Footer/Footer";
 import axios from "axios";
 import 'react-calendar/dist/Calendar.css';
 import { useEffect, useState } from "react";
@@ -41,23 +40,14 @@ const CalendarPage = () => {
                 "dateRange": dateRange
             }
 
-            console.log("body in CalendarJSX -> ", body);
-
-
             axios.post("/api/calendar", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: body
             })
                 .then(async (response) => {
-
-                    console.log("response in submitform: ", response);
-
                     if (response.status === 200 && response.data.data.length != 0) {
-
-                        console.log("response in submit cal: ", response);
                         alert("Dates saved successfully");
-
                     }
                 })
         } catch (error) {
@@ -95,8 +85,6 @@ const CalendarPage = () => {
                     </form>
 
                 </div>
-
-                <Footer />
             </div>
         </>
     )

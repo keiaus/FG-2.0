@@ -1,6 +1,4 @@
-import React from "react";
 import Layout from "../../../components/Layout/Layout";
-import Footer from "../../../components/Footer/Footer";
 
 const AboutPage = () => {
     return (
@@ -14,7 +12,6 @@ const AboutPage = () => {
                 <p id="about-p">FG-2.0 is a web application designed to make traveling with large groups of people<br /> less of a headache.
                     Instead of having to reach out to a group chat for a date range, <br />FG-2.0 encourages group planning through a calendar.
                 </p>
-                <Footer />
             </div>
         </>
     )

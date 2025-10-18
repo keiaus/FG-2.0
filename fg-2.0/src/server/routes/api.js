@@ -77,7 +77,6 @@ router.post('/calendar', async (req, res) => {
 router.get('/calendar', async (req, res) => {
     try {
         const getResponse = await CalendarCntrl.retrieve(req.body.body);
-        console.log("getResponse: ", getResponse);
         res.status(200).json({data: getResponse});
     } catch (error) {
         res.status(400).json({ message: error.message });

@@ -1,6 +1,6 @@
-import Layout from "../../../components/Layout/Layout";
+import Layout from "../../../components/Layout/LoggedInLayout";
 
-const HomePage = () => {
+const LoggedInHome = () => {
     return (
         <>
             <Layout />
@@ -14,4 +14,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage;
+export default LoggedInHome;

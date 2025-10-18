@@ -1,6 +1,4 @@
-import React from "react";
 import Layout from "../../../components/Layout/Layout";
-import Footer from "../../../components/Footer/Footer";
 
 const DocumentationPage = () => {
     return (
@@ -8,7 +6,6 @@ const DocumentationPage = () => {
             <div>
             <title>Docs | FG-2.0</title>
                 <Layout/>
-                <Footer/>
             </div>
         </>
     )

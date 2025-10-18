@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../../../components/Layout/Layout";
-import Footer from "../../../components/Footer/Footer";
-import HomePage from "../home/Home";
+import LoggedInHome from "../home/LoggedInHome";
 import PropTypes from 'prop-types';
 import axios from "axios";
 
@@ -19,12 +18,10 @@ const loginUser = async (credentials) => {
         body: body
     })
         .then(async (response) => {
-            console.log("response: ", response);
             return response;
         })
         .catch(async (error) => {
-            console.log("error: ", error);
-
+            console.error("error: ", error);
         })
 }
 
@@ -33,9 +30,6 @@ const LoginForm = ({ setToken }) => {
     const [username, setUsername] = useState();
     const [pass, setPass] = useState();
     const [loggedIn, setLoggedIn] = useState(false);
-
-    console.log("loggedIn: ", loggedIn);
-    
 
     const onSubmitForm = async (event) => {
         event.preventDefault();
@@ -65,8 +59,6 @@ const LoginForm = ({ setToken }) => {
                             }).then((res) => {
                                 setToken(res?.data);
                                 localStorage.setItem("userId", username);
-                                const items = {...localStorage};
-                                console.log("*** LOCAL STORAGE ***", items);
                                 alert(`Logged in as ${username}`);
                                 setLoggedIn(true);
                             }).catch((error) => {
@@ -91,9 +83,7 @@ const LoginForm = ({ setToken }) => {
     }
 
     if (loggedIn) {
-        console.log("we're logged in");
-        
-        return <HomePage />
+        return <LoggedInHome />
     }
 
     else {
@@ -117,7 +107,6 @@ const LoginForm = ({ setToken }) => {
                         <input type="submit" id="submit" value={"Log In"}></input>
                     </form>
                 </div>
-                <Footer />
             </>
         )
     }

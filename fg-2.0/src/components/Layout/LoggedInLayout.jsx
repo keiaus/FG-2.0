@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 
-const Layout = () => {
+const LoggedInLayout = () => {
     return (
         <>
             <div id="layout-component">
@@ -16,10 +16,7 @@ const Layout = () => {
                             <Link to="/docs">Docs</Link>
                         </li>
                         <li>
-                            <Link to="/signup">Sign up</Link>
-                        </li>
-                        <li>
-                            <Link to="/login">Log in</Link>
+                            <Link to="/logout">Log out</Link>
                         </li>
                     </ul>
                 </nav>
@@ -29,4 +26,4 @@ const Layout = () => {
     )
 }
 
-export default Layout;
+export default LoggedInLayout;

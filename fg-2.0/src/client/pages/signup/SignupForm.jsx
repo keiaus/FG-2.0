@@ -1,5 +1,4 @@
 import Layout from "../../../components/Layout/Layout";
-import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
 import axios from "axios";
 
@@ -56,7 +55,6 @@ const SignupForm = () => {
                 userData
             })
                 .then((response) => {
-                    console.log("response: ", response);
                     if (response.status === 200) {
                         if (response?.data?.errors) {
                             for (const [key, value] of Object.entries(response?.data?.errors)) {
@@ -77,7 +75,7 @@ const SignupForm = () => {
                     }
                 })
                 .catch((error) => {
-                    console.log("error: ", error);
+                    console.error("error: ", error);
                 })
         }
     }
@@ -114,7 +112,6 @@ const SignupForm = () => {
                     <input type="submit" id="submit" value={"Sign Up"}></input>
                 </form>
             </div>
-            <Footer />
         </>
     )
 }
