@@ -8,8 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@esbuild/darwin-arm64": "^0.24.2",
-    "@mui/material": "^5.11.12",
+    "@mui/material": "^5.18.0",
     "axios": "^1.8.2",
     "axis": "^1.0.0",
     "bootstrap": "^5.3.2",

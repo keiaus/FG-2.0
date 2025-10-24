@@ -1,4 +1,5 @@
 import Layout from "../../../components/Layout/LoggedInLayout";
+import CalendarPage from "../calendar/Calendar";
 
 const LoggedInHome = () => {
     return (
@@ -6,9 +7,7 @@ const LoggedInHome = () => {
             <Layout />
             <div id="home">
                 <title>Home | FG-2.0</title>
-                <header>
-                    <h1 id="fg-header">Welcome to FG 2.0</h1>
-                </header>
+                <CalendarPage/>
             </div>
         </>
     )

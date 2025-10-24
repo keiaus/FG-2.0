@@ -4,10 +4,18 @@ import axios from "axios";
 import 'react-calendar/dist/Calendar.css';
 import { useEffect, useState } from "react";
 
+/**
+ * TODO: Add buttons for group CRUD actions (this should be on the right side of the calendar)
+ * @returns CalendarPage screen
+ */
+
 const CalendarPage = () => {
     const [userId, setUserId] = useState();
     const [tokenId, setTokenId] = useState();
     const [dateRange, setDateRange] = useState(new Date());
+    const [newGroup, setNewGroup] = useState({});
+    const [leaveGroup, setLeaveGroup] = useState(false);
+    const [joinGroup, setJoinGroup] = useState(false);
 
     if (localStorage.getItem("token") != "") {
         useEffect(() => {
@@ -59,7 +67,7 @@ const CalendarPage = () => {
         <>
             <div>
                 <title>Calendar | FG-2.0</title>
-                <Layout />
+                {/* <Layout /> */}
                 <header>
                     <h1 id="calendar-title">Calendar</h1>
                 </header>
