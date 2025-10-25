@@ -33,6 +33,44 @@ body {
   color: aqua;
 }
 
+#create-grp-btn {
+  margin: 10px;
+  cursor: pointer;
+}
+
+#join-grp-btn {
+  margin: 10px;
+  cursor: pointer;
+}
+
+#leave-grp-btn {
+  margin: 10px;
+  cursor: pointer;
+}
+
+#group-div {
+  text-align: center;
+  margin-top: 250px;
+}
+
+/* #group-div {
+  position: relative;
+  text-align: right;
+  bottom: 540px;
+} */
+
+#create-grp-btn {
+  font-size: 30px
+}
+
+#join-grp-btn {
+  font-size: 30px
+}
+
+#leave-grp-btn {
+  font-size: 30px
+}
+
 #calendar-div {
   width: 800px;
   height: 600px;
