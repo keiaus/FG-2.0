@@ -5,7 +5,8 @@ import 'react-calendar/dist/Calendar.css';
 import { useEffect, useState } from "react";
 
 /**
- * TODO: Place handle hooks in body (these are just committed ideas)
+ * TODO: Create page for newly created groups
+ * This method creates the calendar page actions
  * @returns CalendarPage screen
  */
 
@@ -18,9 +19,7 @@ const CalendarPage = () => {
     const [joinGroup, setJoinGroup] = useState(false);
 
     if (localStorage.getItem("token") != "") {
-        useEffect(() => {
-            setTokenId(JSON.parse(localStorage.getItem("token")));
-        })
+        setTokenId(JSON.parse(localStorage.getItem("token")));
     }
 
     else {
@@ -28,9 +27,7 @@ const CalendarPage = () => {
     }
 
     if (localStorage.getItem("userId") != "") {
-        useEffect(() => {
-            setUserId(localStorage.getItem("userId"));
-        })
+        setUserId(localStorage.getItem("userId"));
     }
 
     else {
@@ -39,31 +36,19 @@ const CalendarPage = () => {
 
     const handleCreate = async (event) => {
         event.preventDefault();
-
-        useEffect(() => {
-            setNewGroup(true);
-        });
-
+        setNewGroup(true);
         alert("Create new group clicked");
     }
 
     const handleJoin = async (event) => {
         event.preventDefault();
-
-        useEffect(() => {
-            setJoinGroup(true);
-        });
-
+        setJoinGroup(true);
         alert("Join group clicked");
     }
 
     const handleLeave = async (event) => {
         event.preventDefault();
-
-        useEffect(() => {
-            setLeaveGroup(true);
-        });
-
+        setLeaveGroup(true);
         alert("Leave group clicked");
     }
 
@@ -93,7 +78,7 @@ const CalendarPage = () => {
         }
     }
 
-    if (newGroup || joinGroup || leaveGroup) {
+    if (newGroup) {
         return (
             <>
                 <div>

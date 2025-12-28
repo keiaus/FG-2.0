@@ -7,8 +7,9 @@ const AdminCntrl = require('../controllers/adminCntrl');
 const BookingCntrl = require('../controllers/bookingCntrl');
 const FlightCntrl = require('../controllers/flightCntrl');
 const UserCntrl = require('../controllers/userCntrl');
+const GroupCntrl = require('../controllers/groupCntrl');
 const CalendarCntrl = require('../controllers/calendarCntrl');
-const Utils = require('../utils/main');
+const Utils = require('../utils/tokenGenerator');
 
 // Data api
 
@@ -21,6 +22,17 @@ router.get("/status", (request, response) => {
         "status": "Running"
     };
     response.send(status);
+})
+
+// ********** GROUP ROUTES ********** //
+
+router.post('newGroup', async (req, res) => {
+    try {
+        const newGroup = await GroupCntrl.createNewGroup(req.body);
+        res.status(200).json(newGroup);
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
 })
 
 // ********** USER ROUTES ********** //
