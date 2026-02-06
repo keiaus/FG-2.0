@@ -24,7 +24,8 @@ const NewGroup = () => {
 
         else {
             let groupData = {
-                "groupName": groupName
+                "groupName": groupName,
+                "groupId": 0
             }
 
             axios.post("/api/newGroup", {

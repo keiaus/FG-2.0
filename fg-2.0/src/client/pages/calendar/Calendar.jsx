@@ -1,4 +1,5 @@
 import Calendar from "react-calendar";
+import NewGroup from "../group/NewGroup";
 import Layout from "../../../components/Layout/Layout";
 import axios from "axios";
 import 'react-calendar/dist/Calendar.css';
@@ -82,36 +83,43 @@ const CalendarPage = () => {
         return (
             <>
                 <div>
-                    <title>Calendar | FG-2.0</title>
-                    {/* <Layout /> */}
-                    <header>
-                        <h1 id="calendar-title">Calendar</h1>
-                    </header>
-                    <div id="calendar-div">
-                        <Calendar onChange={setDateRange} value={dateRange} selectRange={true} />
-                        <br />
-                        {dateRange.length > 0 ? (
-                            <p className="text-container">
-                                <span className="bold">Start:</span>{' '}
-                                {dateRange[0].toDateString()}
-                                &nbsp;|&nbsp;
-                                <span className="bold">End:</span> {dateRange[1].toDateString()}
-                            </p>
-                        ) : (
-                            <p className="text-container">
-                                <span className="bold">Today's Date:</span>{' '}
-                                {dateRange.toDateString()}
-                            </p>
-                        )}
-
-                        <form onSubmit={onSubmitForm}>
-                            <input type="submit" id="calendar-submit" value={"Confirm"} />
-                        </form>
-
-                    </div>
+                    <NewGroup/>
                 </div>
             </>
         )
+        // return (
+        //     <>
+        //         <div>
+        //             <title>Calendar | FG-2.0</title>
+        //             {/* <Layout /> */}
+        //             <header>
+        //                 <h1 id="calendar-title">Calendar</h1>
+        //             </header>
+        //             <div id="calendar-div">
+        //                 <Calendar onChange={setDateRange} value={dateRange} selectRange={true} />
+        //                 <br />
+        //                 {dateRange.length > 0 ? (
+        //                     <p className="text-container">
+        //                         <span className="bold">Start:</span>{' '}
+        //                         {dateRange[0].toDateString()}
+        //                         &nbsp;|&nbsp;
+        //                         <span className="bold">End:</span> {dateRange[1].toDateString()}
+        //                     </p>
+        //                 ) : (
+        //                     <p className="text-container">
+        //                         <span className="bold">Today's Date:</span>{' '}
+        //                         {dateRange.toDateString()}
+        //                     </p>
+        //                 )}
+
+        //                 <form onSubmit={onSubmitForm}>
+        //                     <input type="submit" id="calendar-submit" value={"Confirm"} />
+        //                 </form>
+
+        //             </div>
+        //         </div>
+        //     </>
+        // )
     }
 
     else {
