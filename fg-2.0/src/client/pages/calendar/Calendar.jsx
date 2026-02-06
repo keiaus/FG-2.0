@@ -1,96 +1,146 @@
-import React, { useState } from "react";
+import Calendar from "react-calendar";
+import NewGroup from "../group/NewGroup";
 import Layout from "../../../components/Layout/Layout";
-import Footer from "../../../components/Footer/Footer";
+import axios from "axios";
+import 'react-calendar/dist/Calendar.css';
+import { useEffect, useState } from "react";
+
+/**
+ * TODO: Create page for newly created groups
+ * This method creates the calendar page actions
+ * @returns CalendarPage screen
+ */
 
 const CalendarPage = () => {
-    let month = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ]
+    const [userId, setUserId] = useState();
+    const [tokenId, setTokenId] = useState();
+    const [dateRange, setDateRange] = useState(new Date());
+    const [newGroup, setNewGroup] = useState(false);
+    const [leaveGroup, setLeaveGroup] = useState(false);
+    const [joinGroup, setJoinGroup] = useState(false);
 
-    const [monthName, setMonthName] = useState(new Date().getMonth());
-    const [year, setYear] = useState(new Date().getFullYear());
-    const [days] = useState([]);
-
-    const handleDayClicked = () => {
-        console.log("DAY CLICKED");
-        // let dayClicked = document.getElementById('')
-        // const button = document.getElementById("day-button");
-        // button.setAttribute("style", "background-color: green;");
+    if (localStorage.getItem("token") != "") {
+        setTokenId(JSON.parse(localStorage.getItem("token")));
     }
 
-    const handleForwardArrow = () => {
-        setMonthName(prevIndex => (prevIndex + 1) % 12);
-        if (month[monthName] === "December") {
-            setYear(prevIndex => (prevIndex + 1));
+    else {
+        return alert("Missing token");
+    }
+
+    if (localStorage.getItem("userId") != "") {
+        setUserId(localStorage.getItem("userId"));
+    }
+
+    else {
+        return alert("Missing username");
+    }
+
+    const handleCreate = async (event) => {
+        event.preventDefault();
+        setNewGroup(true);
+        alert("Create new group clicked");
+    }
+
+    const handleJoin = async (event) => {
+        event.preventDefault();
+        setJoinGroup(true);
+        alert("Join group clicked");
+    }
+
+    const handleLeave = async (event) => {
+        event.preventDefault();
+        setLeaveGroup(true);
+        alert("Leave group clicked");
+    }
+
+    const onSubmitForm = async (event) => {
+        event.preventDefault();
+
+        try {
+            const body = {
+                "calendarId": 0,
+                "tokenId": tokenId,
+                "userId": userId,
+                "dateRange": dateRange
+            }
+
+            axios.post("/api/calendar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: body
+            })
+                .then(async (response) => {
+                    if (response.status === 200 && response.data.data.length != 0) {
+                        alert("Dates saved successfully");
+                    }
+                })
+        } catch (error) {
+            console.error(error);
         }
     }
 
-    const handleBackArrow = () => {
-        setMonthName(prevIndex => (prevIndex - 1 + 12) % 12);
-        if (month[monthName] === "January") {
-            setYear(prevIndex => (prevIndex - 1));
-        }
+    if (newGroup) {
+        return (
+            <>
+                <div>
+                    <NewGroup/>
+                </div>
+            </>
+        )
+        // return (
+        //     <>
+        //         <div>
+        //             <title>Calendar | FG-2.0</title>
+        //             {/* <Layout /> */}
+        //             <header>
+        //                 <h1 id="calendar-title">Calendar</h1>
+        //             </header>
+        //             <div id="calendar-div">
+        //                 <Calendar onChange={setDateRange} value={dateRange} selectRange={true} />
+        //                 <br />
+        //                 {dateRange.length > 0 ? (
+        //                     <p className="text-container">
+        //                         <span className="bold">Start:</span>{' '}
+        //                         {dateRange[0].toDateString()}
+        //                         &nbsp;|&nbsp;
+        //                         <span className="bold">End:</span> {dateRange[1].toDateString()}
+        //                     </p>
+        //                 ) : (
+        //                     <p className="text-container">
+        //                         <span className="bold">Today's Date:</span>{' '}
+        //                         {dateRange.toDateString()}
+        //                     </p>
+        //                 )}
+
+        //                 <form onSubmit={onSubmitForm}>
+        //                     <input type="submit" id="calendar-submit" value={"Confirm"} />
+        //                 </form>
+
+        //             </div>
+        //         </div>
+        //     </>
+        // )
     }
 
-    /**
-     * 
-     * @returns - Day count based on month name
-     */
-    const renderDays = () => {
-        const monthName2 = month[monthName];
-        const daysInMonth = getDaysInMonth(monthName2);
-        for (let i = 1; i <= daysInMonth; i++) {
-            days.push(<button key={i} id="day-button">{i}</button>);
-        }
-        return days;
-    };
-
-    const getDaysInMonth = (monthName2) => {
-        if (["April", "June", "September", "November"].includes(monthName2)) {
-            return 30;
-        } else if (monthName2 === "February") {
-            // Assuming a simple calculation for February's days, you may need a more complex logic to handle leap years
-            return 28;
-        } else {
-            return 31;
-        }
-    };
-
-    return (
-        <>
-            <div>
-                <title>Calendar | FG-2.0</title>
-                <Layout />
-                <body id="calendar-body">
-
-                    <div id="calendar-div">
-                        <i id="back-arrow" class="fa-solid fa-arrow-left" onClick={handleBackArrow}></i>
-                        <label id="month-label">{month[monthName]}</label>
-                        <label id="year-label">{year}</label>
-                        <i id="forward-arrow" class="fa-solid fa-arrow-right" onClick={handleForwardArrow}></i>
-                        <table>
-                            <tr>
-                                {renderDays()}
-                                {handleDayClicked()}
-                            </tr>
-                        </table>
+    else {
+        return (
+            <>
+                <div id="group-div">
+                    <div id="create-div">
+                        <button id="create-grp-btn" onClick={handleCreate}> Create Group </button>
                     </div>
-                </body>
-                <Footer />
-            </div>
-        </>
-    )
+                    <div id="join-div">
+                        <button id="join-grp-btn" onClick={handleJoin}> Join Group </button>
+                    </div>
+                    <div id="leave-div">
+                        <button id="leave-grp-btn" onClick={handleLeave}> Leave Group </button>
+                    </div>
+                </div>
+            </>
+        )
+    }
+
+
 }
 
 export default CalendarPage;

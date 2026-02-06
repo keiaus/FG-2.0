@@ -1,122 +1,81 @@
-const Satdata = require('../models/Satdata');
+const UserData = require('../models/user/userModel');
+const client = new UserData.MongoClient(UserData.uri);
 
-// For api tests
-exports.test = (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.json({'test': 'okay'});
+try {
+    UserData.mongoose.connect(`${UserData.uri}`);
+} catch (error) {
+    console.error(error);
 }
 
-"use strict";
+/**
+ * Inserts a new user to the collection
+ * @param {*} req 
+ * @param {*} res - returns the response status
+ */
+exports.createUser = async (req, res) => {
+    let db = null;
+    let coll = null;
 
-require('dotenv').config();
-const pool = require('../db.config');
-
-//create a user record
-const createUser = async (req, res) => {
     try {
-        const { firstName } = req.body;
-        const { lastName } = req.body;
-        const { email } = req.body;
-        const { username } = req.body;
-        const { pass } = req.body;
-        const newUser = await pool.query("INSERT INTO Users (firstName, lastName, email, username, pass) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-            [firstName, lastName, email, username, pass]
-        );
-        res.json(newUser);
+        db = client.db(UserData.db);
+        coll = db.collection(UserData.COLLECTION_A);
     } catch (error) {
-        console.error(error.message);
+        console.error(error);
+    }
+
+    if (db !== null && coll !== null) {
+        let addResponse = null;
+        let error = null;
+
+        try {
+            var newUser = new UserData.UserData({
+                firstName: req.userData.firstName,
+                lastName: req.userData.lastName,
+                email: req.userData.email,
+                username: req.userData.username,
+                password: req.userData.pass
+            });
+
+            await newUser.save();
+
+
+        } catch (err) {
+            console.error(err, "error saving new user");
+            error = err;
+            return error;
+        }
+
+        if (error == null) {
+            try {
+                addResponse = await coll.insertOne(req);
+            } catch (error) {
+                console.error("Error inserting new user: ", error);
+            }
+
+        }
+
+
+    }
+
+    else {
+        console.error("error connecting to db");
     }
 }
 
+/**
+ * Gets the user's credentials for logging in
+ * @param {*} req 
+ * @param {*} res - returns the response status
+ */
+exports.getUser = async (req, res) => {
+    let getResponse = null;
 
-//delete a user record
-const deleteUser = (id) => {
-    return new Promise((resolve, reject) => {
-        pool.query(
-            "DELETE FROM Users WHERE UserID = $1",
-            [id],
-            (error, results) => {
-                if (error) {
-                    reject(error);
-                }
-                resolve(`User deleted with ID: ${id}`);
-            }
-        );
-    });
-};
-
-
-//update a user record
-const updateUser = (id, body) => {
-    return new Promise((resolve, reject) => {
-        const { name, email } = body;
-        pool.query(
-            "UPDATE Users SET name = $1, email = $2 WHERE id = $3 RETURNING *",
-            [name, email, id],
-            (error, results) => {
-                if (error) {
-                    reject(error);
-                }
-                if (results && results.rows) {
-                    resolve(`Merchant updated: ${JSON.stringify(results.rows[0])}`);
-                } else {
-                    reject(new Error("No results found"));
-                }
-            }
-        );
-    });
-};
-
-
-// get a user 
-const getUser = async (id) => {
     try {
-        return await new Promise(function (resolve, reject) {
-            pool.query("SELECT * FROM Users WHERE UserID = $1", 
-            [id], 
-            (error, results) => {
-                if (error) {
-                    reject(error);
-                }
-                if (results && results.rows) {
-                    resolve(results.rows);
-                } else {
-                    reject(new Error("No results found"));
-                }
-            });
-        });
-    } catch (error_1) {
-        console.error(error_1);
-        throw new Error("Internal server error");
+        const db = client.db(UserData.db);
+        const coll = db.collection(UserData.COLLECTION_A);
+        getResponse = await coll.find({ "userData.username": req.username, "userData.pass": req.pass }).toArray();
+        return getResponse;
+    } catch (error) {
+        console.error(error);
     }
-};
-
-
-// get all users
-const getUsers = async () => {
-    try {
-        return await new Promise(function (resolve, reject) {
-            pool.query("SELECT * FROM Users", (error, results) => {
-                if (error) {
-                    reject(error);
-                }
-                if (results && results.rows) {
-                    resolve(results.rows);
-                } else {
-                    reject(new Error("No results found"));
-                }
-            });
-        });
-    } catch (error_1) {
-        console.error(error_1);
-        throw new Error("Internal server error");
-    }
-};
-
-module.exports = {
-    createUser,
-    deleteUser,
-    updateUser,
-    getUser,
-    getUsers
-};
+}

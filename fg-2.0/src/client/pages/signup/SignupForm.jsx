@@ -1,10 +1,13 @@
-import React from "react";
 import Layout from "../../../components/Layout/Layout";
-import Footer from "../../../components/Footer/Footer";
 import { useState } from "react";
+import axios from "axios";
+
+/**
+ * This method creates the signup form
+ * @returns signup form for user
+ */
 
 const SignupForm = () => {
-
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
@@ -12,9 +15,24 @@ const SignupForm = () => {
     const [pass, setPass] = useState();
     const [pass2, setPass2] = useState();
 
+    /**
+     * This method clears the form data after the user successfully signs up
+     */
+    const clearFormData = async () => {
+        setFirstName("");
+        setLastName("");
+        setUsername("");
+        setEmail("");
+        setPass("");
+        setPass2("");
+    }
+
+    /**
+     * This method creates the submit form 
+     * @param {*} event handles the user's data entries on the screen
+     */
     const onSubmitForm = async (event) => {
         event.preventDefault();
-
         if (pass !== pass2) {
             alert("Passwords must match");
         }
@@ -24,20 +42,41 @@ const SignupForm = () => {
         }
 
         if (pass === pass2 && pass !== null && pass2 !== null) {
-            try {
-                const body = { firstName, lastName, email, username, pass };
-                const response = await fetch("http://localhost:5173/signup", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(body)
-                });
 
-                alert("Account created");
-                console.log(response);
-
-            } catch (error) {
-                console.error(error.message);
+            let userData = {
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "username": username,
+                "pass": pass
             }
+
+            axios.post("/api/signup", {
+                userData
+            })
+                .then((response) => {
+                    if (response.status === 200) {
+                        if (response?.data?.errors) {
+                            for (const [key, value] of Object.entries(response?.data?.errors)) {
+                                return alert(`${value?.message}`);
+                            }
+                        }
+
+                        else {
+                            alert("Account created");
+                            clearFormData();
+                        }
+
+
+                    }
+
+                    else {
+                        return alert("Issue with creating user")
+                    }
+                })
+                .catch((error) => {
+                    console.error("error: ", error);
+                })
         }
     }
 
@@ -48,8 +87,10 @@ const SignupForm = () => {
                 <Layout />
             </div>
             <div id="sform-div">
-                <h1 id="signup-h1">Sign Up</h1>
-                <form onSubmit={ onSubmitForm }>
+                <header>
+                    <h1 id="signup-h1">Sign Up</h1>
+                </header>
+                <form onSubmit={onSubmitForm}>
                     <label htmlFor="firstName">First Name: </label><br />
                     <input type="text" id="firstName" required value={firstName} onChange={event => setFirstName(event.target.value)}></input><br />
                     <br />
@@ -71,7 +112,6 @@ const SignupForm = () => {
                     <input type="submit" id="submit" value={"Sign Up"}></input>
                 </form>
             </div>
-            <Footer />
         </>
     )
 }

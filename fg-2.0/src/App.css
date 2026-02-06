@@ -2,17 +2,80 @@ body {
   background-color: dodgerblue;
 }
 
+#start-body {
+  right: auto;  
+}
+
+#end-body {
+  right: auto;
+}
+
+#start-label {
+  font-size: 30px;
+}
+
+#end-label {
+  font-size: 30px;
+}
+
 #calendar-body {
   margin: auto;
+}
+
+#calendar-title {
+  color: beige;
+  text-align: center;
+  margin-top: 100px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.Calendar { 
+  color: aqua;
+}
+
+#create-grp-btn {
+  margin: 10px;
+  cursor: pointer;
+}
+
+#join-grp-btn {
+  margin: 10px;
+  cursor: pointer;
+}
+
+#leave-grp-btn {
+  margin: 10px;
+  cursor: pointer;
+}
+
+#group-div {
+  text-align: center;
+  margin-top: 250px;
+}
+
+/* #group-div {
+  position: relative;
+  text-align: right;
+  bottom: 540px;
+} */
+
+#create-grp-btn {
+  font-size: 30px
+}
+
+#join-grp-btn {
+  font-size: 30px
+}
+
+#leave-grp-btn {
+  font-size: 30px
 }
 
 #calendar-div {
   width: 800px;
   height: 600px;
-  background-color: beige;
   text-align: center;
   margin: auto;
-  margin-top: 120px;
   border-radius: 3%;
 }
 
@@ -49,6 +112,12 @@ body {
 #month-label {
   font-size: 30px;
   font-family: monospace;
+}
+
+.text-container {
+  text-align: center;
+  font-size: xx-large;
+  font-weight: 500;
 }
 
 a {
@@ -133,6 +202,10 @@ label {
   cursor: pointer;
 }
 
+.react-calendar {
+  width: 900px;
+}
+
 #about-h1 {
   color: beige;
   text-align: center;
@@ -144,7 +217,6 @@ label {
   color: beige;
   text-align: center;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  margin-top: 100px;
   font-size: 30px;
 
 }
