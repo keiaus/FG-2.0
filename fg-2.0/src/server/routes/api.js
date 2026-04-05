@@ -28,7 +28,7 @@ router.get("/status", (request, response) => {
 
 router.post('newGroup', async (req, res) => {
     try {
-        const newGroup = await GroupCntrl.createNewGroup(req.body);
+        const newGroup = await GroupCntrl.createNewGroup(req.body, res);
         res.status(200).json(newGroup);
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -45,7 +45,7 @@ router.post('/signup', async (req, res) => {
      */
 
     try {
-        const newUser = await UserCntrl.createUser(req.body);
+        const newUser = await UserCntrl.createUser(req.body, res);
         res.status(200).json(newUser);
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -65,7 +65,7 @@ router.get('/login', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const response = await UserCntrl.getUser(req.body.body);
+        const response = await UserCntrl.getUser(req.body.body, res);
         res.status(200).json({data: response});
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -78,7 +78,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/calendar', async (req, res) => {
     try {
-        const newCalendar = await CalendarCntrl.create(req.body.body);
+        const newCalendar = await CalendarCntrl.create(req.body.body, res);
         res.status(200).json({data: newCalendar});
         
     } catch (error) {
@@ -88,7 +88,7 @@ router.post('/calendar', async (req, res) => {
 
 router.get('/calendar', async (req, res) => {
     try {
-        const getResponse = await CalendarCntrl.retrieve(req.body.body);
+        const getResponse = await CalendarCntrl.retrieve(req.body.body, res);
         res.status(200).json({data: getResponse});
     } catch (error) {
         res.status(400).json({ message: error.message });

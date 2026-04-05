@@ -9,7 +9,7 @@ try {
 
 /**
  * Inserts a new user to the collection
- * @param {*} req 
+ * @param {*} req - request data from the client
  * @param {*} res - returns the response status
  */
 exports.createUser = async (req, res) => {
@@ -27,6 +27,15 @@ exports.createUser = async (req, res) => {
         let addResponse = null;
         let error = null;
 
+        const existing = await UserData.UserData.findOne({
+          $or: [{ email: req.userData.email }, { username: req.userData.username }]
+        });
+
+        if (existing) {
+            const field = existing.email === req.userData.email ? 'Email' : 'Username';
+            return res.status(409).json({ message: `${field} is already in use` });
+        }
+
         try {
             var newUser = new UserData.UserData({
                 firstName: req.userData.firstName,
@@ -37,7 +46,7 @@ exports.createUser = async (req, res) => {
             });
 
             await newUser.save();
-
+            res.status(201).json({ message: 'User created' })
 
         } catch (err) {
             console.error(err, "error saving new user");
@@ -64,7 +73,7 @@ exports.createUser = async (req, res) => {
 
 /**
  * Gets the user's credentials for logging in
- * @param {*} req 
+ * @param {*} req - request data from the client
  * @param {*} res - returns the response status
  */
 exports.getUser = async (req, res) => {
