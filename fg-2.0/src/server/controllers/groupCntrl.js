@@ -1,52 +1,21 @@
 const GroupNameData = require('../models/group/groupModel');
-const client = new GroupNameData.MongoClient(GroupNameData.uri);
 
-try {
-    GroupNameData.mongoose.connect(`${GroupNameData.uri}`);
-} catch (error) {
-    console.error(error);
-}
-
+/**
+ * Creates a new group and returns its generated groupId
+ * @param {*} req
+ * @param {*} res - returns the response status
+ */
 exports.createNewGroup = async (req, res) => {
-    let db = null;
-    let coll = null;
+    const all = await GroupNameData.GroupNameData.find({}).lean();
+    const groupId = all.length === 0 ? 1 : Math.max(...all.map(d => d.groupId)) + 1;
 
-    try {
-        db = client.db(GroupNameData.db);
-        coll = db.collection(GroupNameData.COLLECTION_C);
-    } catch (error) {
-        console.error(error);
-    }
+    const group = new GroupNameData.GroupNameData({
+        groupId,
+        groupName: req.groupName
+    });
 
-    if (null !== db && null !== coll) {
-        let createResponse = null;
-        let error = null;
-
-        try {
-            var newGroup = new GroupNameData.GroupNameData({
-                groupName: req.groupData.groupName
-            })
-
-            await newGroup.save();
-
-        } catch (err) {
-            console.error(err, "error saving new group");
-            error = err;
-            return error;
-        }
-
-        if (null == error) {
-            try {
-                createResponse = await coll.insertOne(req);
-            } catch (error) {
-                console.error("Error inserting new group: ", error);
-            }
-        }
-    }
-
-    else {
-        console.error("error connecting to db");
-    }
+    await group.save();
+    return res.status(200).json({ groupId });
 }
 
 exports.joinGroup = async (req, res) => {
@@ -54,5 +23,5 @@ exports.joinGroup = async (req, res) => {
 }
 
 exports.leaveGroup = async (req, res) => {
-    
+
 }

@@ -1,7 +1,7 @@
-const rand = () => {
-    return Math.random().toString(36).substring(2); // remove `0`
+const crypto = require('crypto');
+
+const tokenGenerator = () => {
+    return crypto.randomBytes(32).toString('hex');
 }
 
-export const tokenGenerator = () => {
-    return rand() + rand();
-}
+module.exports = { tokenGenerator };

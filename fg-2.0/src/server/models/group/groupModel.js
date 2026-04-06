@@ -13,6 +13,10 @@ const db = `${process.env.DB_NAME}`;
 
 const groupNameSchema = new mongoose.Schema(
     {
+        groupId: {
+            type: Number,
+            default: null
+        },
         groupName: {
             type: String,
             trim: true,

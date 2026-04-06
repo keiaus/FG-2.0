@@ -34,9 +34,8 @@ const userSchema = new mongoose.Schema(
             required: [true, "Email is required"],
             unique: [true, "This Email is already associated with another account"],
             validate: {
-                validator: ((value) => {
-                    return value.includes('@') && value.includes('.');
-                }), message: "Email must be in the format of name@domain"
+                validator: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+                message: "Email must be in the format of name@domain"
             },
             maxLength: [254, "Email cannot exceed 254 characters"],
             minLength: [11, "Email cannot be less than 11 characters"]

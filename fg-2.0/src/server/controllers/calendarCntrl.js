@@ -1,86 +1,44 @@
 const CalendarData = require('../models/calendar/calendarModel');
-const client = new CalendarData.MongoClient(CalendarData.uri);
-
-try {
-    CalendarData.mongoose.connect(`${CalendarData.uri}`);
-} catch (error) {
-    console.error(error);
-}
 
 /**
- * Creates a new calendar
- * @param {*} req 
+ * Creates or joins a calendar group entry
+ * @param {*} req
  * @param {*} res - returns the response status
  */
 exports.create = async (req, res) => {
-    let db = null;
-    let coll = null;
+    const all = await CalendarData.CalendarData.find({}).lean();
 
-    try {
-        db = client.db(CalendarData.db);
-        coll = db.collection(CalendarData.COLLECTION_B);
-    } catch (error) {
-        console.error(error);
-    }
+    const calendarId = req.calendarId && Number(req.calendarId) !== 0
+        ? Number(req.calendarId)
+        : (all.length === 0 ? 1 : Math.max(...all.map(d => d.calendarId)) + 1);
 
-    if (db !== null && coll !== null) {
-        let createResponse = null;
-        let getResponse = null;
+    const entry = new CalendarData.CalendarData({
+        calendarId,
+        userId: req.userId,
+        tokenId: req.tokenId,
+        dateRange: JSON.stringify(req.dateRange)
+    });
 
-        try {
-            getResponse = await coll.find({}).toArray();
-        } catch (error) {
-            console.error(error);
-        }
-
-        if (getResponse != null && getResponse.length !== 0) {
-
-            let maxId = 0;
-
-            console.log("getResponse: ", getResponse);
-
-            for (let i = 0; i < getResponse.length; i++) {
-                if (getResponse[i].calendarId > maxId) {
-                    maxId = getResponse[i].calendarId;
-                }
-            }
-
-            req.calendarId = maxId + 1;
-
-            console.log("req after setting: ", req);
-            
-
-            try {
-                createResponse = await coll.insertOne(req);
-                console.log("createResponse: ", createResponse);
-                
-                return createResponse;
-            } catch (error) {
-                console.error(error);
-            }
-            
-            
-        }
-    }
+    await entry.save();
+    return res.status(200).json({ calendarId });
 }
 
 /**
- * Gets the user's credentials for logging in
- * @param {*} req 
+ * Gets all member date entries for a given calendar group
+ * @param {*} req
  * @param {*} res - returns the response status
  */
 exports.retrieve = async (req, res) => {
+    const data = await CalendarData.CalendarData.find({ calendarId: Number(req.calendarId) }).lean();
+    return res.status(200).json({ data });
+}
 
-    console.log("in getUser");
-
-    let getResponse = null;
-
-    try {
-        const db = client.db(UserData.db);
-        const coll = db.collection(UserData.COLLECTION_A);
-        getResponse = await coll.find({ "userData.username": req.username, "userData.pass": req.pass }).toArray();
-        return getResponse;
-    } catch (error) {
-        console.error(error);
-    }
+/**
+ * Removes a user's entry from a calendar group
+ * @param {*} req
+ * @param {*} res - returns the response status
+ */
+exports.leave = async (req, res) => {
+    await CalendarData.CalendarData.deleteOne({ calendarId: Number(req.calendarId), userId: req.userId });
+    return res.status(200).json({ message: 'Left group successfully' });
 }

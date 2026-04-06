@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 /**
  * Fix for MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. 
@@ -26,7 +27,17 @@ const port = process.env.PORT;
 
 const api = require('./routes/api');
 
-app.use('/', cors(), api);
+app.use(cookieParser());
+app.use(cors({
+    origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
+    credentials: true
+}));
+app.use('/api', api);
+app.use(express.static(path.join(__dirname, '../../dist')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../dist', 'index.html'));
+});
 
 app.listen(port, () => {
     console.log(`App is listening on port ${port}`)

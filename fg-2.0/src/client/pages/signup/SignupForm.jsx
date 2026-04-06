@@ -43,12 +43,13 @@ const SignupForm = () => {
 
         if (pass === pass2 && pass !== null && pass2 !== null) {
 
-            let userData = {
+            const userData = {
                 "firstName": firstName,
                 "lastName": lastName,
                 "email": email,
                 "username": username,
-                "pass": pass
+                "pass": pass,
+                "pass2": pass2
             }
 
             axios.post("/api/signup", {

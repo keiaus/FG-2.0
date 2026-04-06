@@ -2,8 +2,8 @@
 
 ## Build/Test/Lint Commands
 
-- `npm run dev` - Start client server (run this command in `fg-2.0`)
-- `node server.js` - Start mongoose server (run this command in `fg-2.0/src/server`)
+- `npm run build` - runs vite build
+- `npm start` - runs node src/server/server.js
 
 ## Code Style Guidelines
 

@@ -1,11 +1,5 @@
 const UserData = require('../models/user/userModel');
-const client = new UserData.MongoClient(UserData.uri);
-
-try {
-    UserData.mongoose.connect(`${UserData.uri}`);
-} catch (error) {
-    console.error(error);
-}
+const bcrypt = require('bcryptjs');
 
 /**
  * Inserts a new user to the collection
@@ -13,78 +7,41 @@ try {
  * @param {*} res - returns the response status
  */
 exports.createUser = async (req, res) => {
-    let db = null;
-    let coll = null;
-
-    try {
-        db = client.db(UserData.db);
-        coll = db.collection(UserData.COLLECTION_A);
-    } catch (error) {
-        console.error(error);
+    if (req.userData.pass !== req.userData.pass2) {
+        return res.status(400).json({ message: 'Passwords do not match' });
     }
 
-    if (db !== null && coll !== null) {
-        let addResponse = null;
-        let error = null;
+    const existing = await UserData.UserData.findOne({
+        $or: [{ email: req.userData.email }, { username: req.userData.username }]
+    });
 
-        const existing = await UserData.UserData.findOne({
-          $or: [{ email: req.userData.email }, { username: req.userData.username }]
-        });
-
-        if (existing) {
-            const field = existing.email === req.userData.email ? 'Email' : 'Username';
-            return res.status(409).json({ message: `${field} is already in use` });
-        }
-
-        try {
-            var newUser = new UserData.UserData({
-                firstName: req.userData.firstName,
-                lastName: req.userData.lastName,
-                email: req.userData.email,
-                username: req.userData.username,
-                password: req.userData.pass
-            });
-
-            await newUser.save();
-            res.status(201).json({ message: 'User created' })
-
-        } catch (err) {
-            console.error(err, "error saving new user");
-            error = err;
-            return error;
-        }
-
-        if (error == null) {
-            try {
-                addResponse = await coll.insertOne(req);
-            } catch (error) {
-                console.error("Error inserting new user: ", error);
-            }
-
-        }
-
-
+    if (existing) {
+        const field = existing.email === req.userData.email ? 'Email' : 'Username';
+        return res.status(409).json({ message: `${field} is already in use` });
     }
 
-    else {
-        console.error("error connecting to db");
-    }
+    const hash = await bcrypt.hash(req.userData.pass, 10);
+
+    const user = new UserData.UserData({
+        firstName: req.userData.firstName,
+        lastName: req.userData.lastName,
+        email: req.userData.email,
+        username: req.userData.username,
+        password: hash
+    });
+
+    await user.save();
+    return res.status(201).json({ message: 'User created' });
 }
 
 /**
- * Gets the user's credentials for logging in
+ * Verifies user credentials for login
  * @param {*} req - request data from the client
- * @param {*} res - returns the response status
+ * @returns user if credentials match, null otherwise
  */
-exports.getUser = async (req, res) => {
-    let getResponse = null;
-
-    try {
-        const db = client.db(UserData.db);
-        const coll = db.collection(UserData.COLLECTION_A);
-        getResponse = await coll.find({ "userData.username": req.username, "userData.pass": req.pass }).toArray();
-        return getResponse;
-    } catch (error) {
-        console.error(error);
-    }
+exports.getUser = async (req) => {
+    const user = await UserData.UserData.findOne({ username: req.username }).lean();
+    if (!user) return null;
+    const match = await bcrypt.compare(req.pass, user.password);
+    return match ? user : null;
 }
